@@ -213,7 +213,10 @@
       <a href="#process">시공 과정</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="header-cta" href="#contact">상담 문의</a>
+    <div class="header-actions" aria-label="상담 바로가기">
+      <a class="header-phone" href="tel:01099213632">010-9921-3632</a>
+      <a class="header-cta" href="https://open.kakao.com/o/scaooume" target="_blank" rel="noopener noreferrer">상담 문의</a>
+    </div>
   </header>
 
   <main id="top">
@@ -223,9 +226,11 @@
         <h1>반딧불이 새집증후군</h1>
         <p class="hero__lead">입주 전, 우리 가족이 숨 쉬는 공기부터 확인하세요</p>
         <p class="hero__sub">신축 아파트 · 구축 아파트 올수리 · 인테리어 냄새 전문 시공</p>
+        <p class="hero__phone">전화 상담 <a href="tel:01099213632">010-9921-3632</a></p>
         <div class="hero__actions">
-          <a class="button button--primary" href="#contact">무료 상담 요청</a>
-          <a class="button button--ghost" href="#intent">상황별 정보 보기</a>
+          <a class="button button--primary" href="https://open.kakao.com/o/scaooume" target="_blank" rel="noopener noreferrer">카카오톡 상담하기</a>
+          <a class="button button--secondary" href="tel:01099213632">전화 상담</a>
+          <a class="button button--ghost" href="#process">시공 과정 보기</a>
         </div>
         <ul class="hero__badges" aria-label="핵심 서비스">
           <li>새집증후군</li>
@@ -492,32 +497,31 @@
     <section class="section contact" id="contact">
       <div>
         <p class="eyebrow">Contact</p>
-        <h2>입주 일정이 정해졌다면 지금 상담하세요</h2>
-        <p>반딧불이 새집증후군이 우리 가족의 첫 공기를 함께 준비하겠습니다.</p>
+        <h2>카카오톡 또는 전화로 편하게 상담하세요</h2>
+        <p>현장 사진을 보내주시면 공간 상태에 맞춰 필요한 공정을 안내드립니다. 평수, 입주 예정일, 인테리어 여부, 새가구 반입 여부, 아이/반려동물 여부를 함께 알려주시면 더 정확한 상담이 가능합니다.</p>
       </div>
-      <form class="contact-form" aria-label="상담 문의 양식">
-        <label>
-          이름
-          <input type="text" name="name" placeholder="이름을 입력하세요" />
-        </label>
-        <label>
-          연락처
-          <input type="tel" name="phone" placeholder="연락처를 입력하세요" />
-        </label>
-        <label>
-          상담 내용
-          <textarea name="message" rows="4" placeholder="입주 일정, 공간 상태, 궁금한 점을 남겨주세요"></textarea>
-        </label>
-        <button class="button button--primary" type="submit">상담 문의 남기기</button>
-        <p class="form-note" role="status" data-form-note>문의 내용을 입력한 뒤 연락처를 확인해 주세요.</p>
-      </form>
+      <div class="contact-card" aria-label="상담 연결 방법">
+        <strong>상담 연결</strong>
+        <p class="contact-card__phone"><a href="tel:01099213632">010-9921-3632</a></p>
+        <div class="contact-card__actions">
+          <a class="button button--primary" href="https://open.kakao.com/o/scaooume" target="_blank" rel="noopener noreferrer">카카오톡 상담하기</a>
+          <a class="button button--secondary" href="tel:01099213632">전화 상담하기</a>
+        </div>
+        <p class="contact-card__note">버튼을 누르면 바로 상담 채널로 연결됩니다.</p>
+      </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <strong>반딧불이 새집증후군</strong>
     <p>새집증후군 · 인테리어 냄새 제거 · 베이크아웃 · 새집 냄새 제거</p>
+    <p><a href="tel:01099213632">010-9921-3632</a></p>
   </footer>
+
+  <div class="mobile-fixed-actions" aria-label="모바일 빠른 상담 버튼">
+    <a href="https://open.kakao.com/o/scaooume" target="_blank" rel="noopener noreferrer">카카오톡 상담</a>
+    <a href="tel:01099213632">전화하기</a>
+  </div>
 
   <script src="script.js"></script>
 </body>
