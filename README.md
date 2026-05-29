@@ -1,1 +1,9 @@
-# banditbully-mapo-homepage
+# 반딧불이 새집증후군 랜딩페이지
+
+브랜드형 랜딩페이지 정적 파일입니다.
+
+## 구성
+
+- `index.html`: 페이지 구조, SEO 메타 태그, 본문, FAQ
+- `style.css`: 반응형 레이아웃과 브랜드 스타일
+- `script.js`: 헤더 스크롤 상태와 상담 문의 폼 안내 문구
