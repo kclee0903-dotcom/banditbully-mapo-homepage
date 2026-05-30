@@ -228,6 +228,23 @@ p { color: var(--body); line-height: 1.84; }
 }
 .intro__heading p:last-child { margin-bottom: 0; }
 
+.intro__support {
+  margin-top: 34px;
+  background: transparent;
+}
+
+.construction-intent {
+  position: relative;
+  z-index: 1;
+  margin-top: 44px;
+}
+
+.construction-intent .section-heading {
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+
 .grid { display: grid; gap: 22px; }
 .cards--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
