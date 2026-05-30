@@ -11,16 +11,13 @@ const revealItems = document.querySelectorAll('[data-reveal]');
 
 if (revealItems.length) {
   if ('IntersectionObserver' in window) {
-    const revealObserver = new IntersectionObserver((entries, observer) => {
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
+        entry.target.classList.toggle('is-visible', entry.isIntersecting);
       });
     }, {
-      threshold: 0.18,
-      rootMargin: '0px 0px -8% 0px',
+      threshold: 0.22,
+      rootMargin: '0px 0px -10% 0px',
     });
 
     revealItems.forEach((item) => revealObserver.observe(item));
