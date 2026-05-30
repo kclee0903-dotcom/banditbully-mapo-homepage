@@ -260,9 +260,18 @@ p { color: var(--muted); line-height: 1.75; }
 .checklist li { position: relative; padding-left: 32px; color: var(--muted); line-height: 1.7; }
 .checklist li::before { content: '✓'; position: absolute; left: 0; color: var(--brand-dark); font-weight: 900; }
 
-.timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
-.timeline article { padding: 18px 18px 26px; background: #fff; border: 1px solid var(--line); border-radius: 26px; box-shadow: 0 16px 42px rgba(91, 72, 22, 0.08); }
+.timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
+.timeline article { display: flex; flex-direction: column; padding: 18px 18px 26px; background: #fff; border: 1px solid var(--line); border-radius: 26px; box-shadow: 0 16px 42px rgba(91, 72, 22, 0.08); }
 .timeline span { display: grid; place-items: center; width: 38px; height: 38px; margin: 20px 0 18px; background: var(--soft); border-radius: 50%; font-weight: 900; }
+.timeline h3 { min-height: 3.1em; margin-bottom: 10px; }
+.timeline article > p:last-child { margin-bottom: 0; font-size: 0.96rem; line-height: 1.76; }
+.process__keywords {
+  margin-bottom: 14px;
+  color: var(--brand-dark);
+  font-size: 0.9rem;
+  font-weight: 900;
+  line-height: 1.5;
+}
 
 .process__image {
   display: block;
@@ -308,6 +317,7 @@ details p { margin: 16px 0 0; }
   .hero, .expert, .split, .contact { grid-template-columns: 1fr; }
   .hero { min-height: auto; }
   .cards--three, .timeline, .intent-grid { grid-template-columns: 1fr 1fr; }
+  .timeline h3 { min-height: auto; }
   .contact { align-items: stretch; }
 }
 
@@ -320,6 +330,9 @@ details p { margin: 16px 0 0; }
   .hero__visual { min-height: 390px; border-radius: 28px; }
   .cards--three, .timeline, .intent-grid { grid-template-columns: 1fr; }
   .card, .checklist, .contact-card, .expert__panel, .intent-grid article { padding: 24px; }
+  .timeline article { padding: 16px 16px 24px; }
+  .timeline article > p:last-child { line-height: 1.82; }
+  .process__keywords { margin-bottom: 12px; font-size: 0.88rem; line-height: 1.6; }
   .contact { margin: 20px 18px 96px; padding: 42px 22px; border-radius: 30px; }
   .mobile-fixed-actions {
     position: fixed;
