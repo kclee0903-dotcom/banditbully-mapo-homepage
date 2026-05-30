@@ -10,9 +10,9 @@
 
 ## 이미지 연결
 
-이미지는 저장소 최상단에 있는 기존 파일만 참조합니다.
+Hero 이미지는 `public/images` 경로를 사용하고, 나머지 공정 이미지는 저장소 최상단의 기존 파일을 참조합니다.
 
-- Hero 대표 이미지: `ChatGPT Image 2026년 5월 30일 오전 01_04_05.png`
+- Hero 대표 이미지: `public/images/bandibuli-indoor-air-hero.png`
 - 액상 공정: `KakaoTalk_20260528_172926361.jpg`
 - 차폐 공정: `차폐.jpg`
 - 오존 공정: `KakaoTalk_20260528_172926361_01.jpg`
