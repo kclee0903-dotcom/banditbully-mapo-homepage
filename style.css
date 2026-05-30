@@ -177,13 +177,32 @@ p { color: var(--muted); line-height: 1.75; }
   box-shadow: var(--shadow);
 }
 
-.glow { position: absolute; border-radius: 50%; filter: blur(4px); }
+.hero__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.52);
+}
+
+.hero__visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(29, 33, 23, 0.04), rgba(29, 33, 23, 0.28));
+  pointer-events: none;
+}
+
+.glow { position: absolute; z-index: 1; border-radius: 50%; filter: blur(4px); }
 
 .glow--one { width: 290px; height: 290px; top: 60px; right: 40px; background: rgba(255, 225, 106, 0.72); }
 .glow--two { width: 230px; height: 230px; bottom: 56px; left: 42px; background: rgba(173, 219, 126, 0.56); }
 
 .air-card {
   position: absolute;
+  z-index: 2;
   right: 42px;
   bottom: 46px;
   width: min(360px, calc(100% - 64px));
@@ -265,8 +284,17 @@ p { color: var(--muted); line-height: 1.75; }
 .checklist li::before { content: '✓'; position: absolute; left: 0; color: var(--brand-dark); font-weight: 900; }
 
 .timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
-.timeline article { padding: 26px; background: #fff; border: 1px solid var(--line); border-radius: 26px; }
-.timeline span { display: grid; place-items: center; width: 38px; height: 38px; margin-bottom: 22px; background: var(--soft); border-radius: 50%; font-weight: 900; }
+.timeline article { padding: 18px 18px 26px; background: #fff; border: 1px solid var(--line); border-radius: 26px; box-shadow: 0 16px 42px rgba(91, 72, 22, 0.08); }
+.timeline span { display: grid; place-items: center; width: 38px; height: 38px; margin: 20px 0 18px; background: var(--soft); border-radius: 50%; font-weight: 900; }
+
+.process__image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 16px 34px rgba(91, 72, 22, 0.16);
+}
 
 .faq-list { display: grid; gap: 14px; }
 details { padding: 22px 26px; background: #fff; border: 1px solid var(--line); border-radius: 22px; }
@@ -313,6 +341,7 @@ details p { margin: 16px 0 0; }
   .header-cta { display: none; }
   .section { padding: 68px 18px; }
   .hero__visual { min-height: 390px; border-radius: 28px; }
+  .air-card { right: 20px; bottom: 20px; width: min(320px, calc(100% - 40px)); padding: 22px; }
   .cards--three, .timeline, .intent-grid { grid-template-columns: 1fr; }
   .card, .checklist, .contact-card, .expert__panel, .intent-grid article { padding: 24px; }
   .contact { margin: 20px 18px 96px; padding: 42px 22px; border-radius: 30px; }
