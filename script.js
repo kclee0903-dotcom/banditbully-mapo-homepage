@@ -33,7 +33,7 @@ updateTopButton();
 const revealSelectors = ['.reveal', '.reveal-card', '.reveal-table', '.reveal-image'];
 const revealItems = new Set(document.querySelectorAll(revealSelectors.join(', ')));
 
-const rhythmGroups = document.querySelectorAll('.cards, .premium-brand__cards, .intent-grid, .timeline, .faq-list, .contact-card__actions');
+const rhythmGroups = document.querySelectorAll('.cards, .premium-brand__cards, .intent-grid, .timeline, .video-grid, .faq-list, .contact-card__actions, .video-cta__actions');
 
 rhythmGroups.forEach((group) => {
   Array.from(group.children).forEach((item, index) => {
