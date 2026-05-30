@@ -475,6 +475,55 @@ details p { margin: 16px 0 0; }
 
 .mobile-fixed-actions { display: none; }
 
+.top-button {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 35;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 74px;
+  min-height: 48px;
+  padding: 0 18px;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--brand-deep), var(--brand-dark));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  box-shadow: 0 16px 34px rgba(23, 56, 47, 0.24);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(14px);
+  transition: opacity 0.28s var(--ease), transform 0.28s var(--ease), box-shadow 0.28s var(--ease), background 0.28s var(--ease);
+}
+
+.top-button.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.top-button:hover, .top-button:focus-visible {
+  box-shadow: 0 22px 44px rgba(23, 56, 47, 0.32);
+  transform: translateY(-4px);
+}
+
+.top-button:focus-visible {
+  outline: 3px solid rgba(243, 195, 58, 0.58);
+  outline-offset: 4px;
+}
+
+.top-button__icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
 .reveal, .reveal-card, .reveal-table, .reveal-image, .reveal-card-group > * {
   opacity: 0;
   transform: translateY(28px);
@@ -559,6 +608,14 @@ details p { margin: 16px 0 0; }
   }
   .mobile-fixed-actions a:first-child { background: var(--brand); color: #2a250d; }
   .mobile-fixed-actions a:last-child { background: var(--brand-deep); color: #fff; }
+  .top-button {
+    right: 16px;
+    bottom: 104px;
+    min-width: 68px;
+    min-height: 44px;
+    padding: 0 15px;
+    font-size: 0.82rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

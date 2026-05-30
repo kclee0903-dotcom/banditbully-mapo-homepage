@@ -1,11 +1,34 @@
 const header = document.querySelector('[data-header]');
+const topButton = document.querySelector('[data-top-button]');
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 const updateHeader = () => {
   header?.classList.toggle('is-scrolled', window.scrollY > 8);
 };
 
-window.addEventListener('scroll', updateHeader, { passive: true });
+const updateTopButton = () => {
+  if (!topButton) return;
+
+  const isVisible = window.scrollY > 180;
+  topButton.classList.toggle('is-visible', isVisible);
+  topButton.setAttribute('aria-hidden', String(!isVisible));
+  topButton.tabIndex = isVisible ? 0 : -1;
+};
+
+window.addEventListener('scroll', () => {
+  updateHeader();
+  updateTopButton();
+}, { passive: true });
+
+topButton?.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: prefersReducedMotion.matches ? 'auto' : 'smooth',
+  });
+});
+
 updateHeader();
+updateTopButton();
 
 const revealSelectors = ['.reveal', '.reveal-card', '.reveal-table', '.reveal-image'];
 const revealItems = new Set(document.querySelectorAll(revealSelectors.join(', ')));
