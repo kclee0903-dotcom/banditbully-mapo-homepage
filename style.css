@@ -615,7 +615,8 @@ p { color: var(--body); line-height: 1.84; }
 .faq-list { display: grid; gap: 14px; }
 details { padding: 22px 26px; background: #fff; border: 1px solid var(--line); border-radius: 22px; }
 summary { cursor: pointer; color: var(--heading); font-weight: 680; line-height: 1.55; letter-spacing: -0.025em; }
-details p { margin: 16px 0 0; }
+details p { margin: 16px 0 0; line-height: 1.82; }
+details strong { color: var(--brand-dark); font-weight: 760; }
 
 .contact {
   display: grid;
