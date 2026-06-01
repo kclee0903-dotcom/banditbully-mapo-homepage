@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>시공사례 | 반딧불이 새집증후군</title>
+  <meta name="description" content="반딧불이 새집증후군의 실제 현장 사진, 고객 요청, 시공 포인트를 확인할 수 있는 시공사례 게시판입니다." />
+  <meta name="theme-color" content="#f7f5ef" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="case-board-page">
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html#top" aria-label="반딧불이 새집증후군 홈으로 이동">
+      <img class="brand__icon" src="bandibuli-icon.png" alt="" aria-hidden="true" />
+      <span>반딧불이 새집증후군</span>
+    </a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="index.html#expert">시공정보</a>
+      <a href="process.html">시공공정</a>
+      <a href="cases.html" aria-current="page">시공사례</a>
+      <a href="index.html#videos">시공영상</a>
+      <a href="index.html#reviews">고객리뷰</a>
+      <a href="index.html#faq">FAQ</a>
+    </nav>
+    <div class="header-actions" aria-label="상담 바로가기">
+      <a class="header-phone" href="tel:01099213632">010-9921-3632</a>
+      <a class="header-cta" href="https://open.kakao.com/o/scaooume" target="_blank" rel="noopener noreferrer">상담 문의</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="case-hero section" aria-labelledby="case-hero-title">
+      <div class="case-hero__copy reveal">
+        <p class="eyebrow">Field portfolio</p>
+        <h1 id="case-hero-title">현장 사진으로 확인하는 반딧불이 시공사례</h1>
+        <p>신축 아파트, 구축 올수리, 새가구 반입, 대형시설까지 실제 현장 상태와 시공 포인트를 사진 중심으로 정리했습니다.</p>
+        <div class="case-hero__actions">
+          <a class="button button--primary" href="case-admin.html">관리자 글쓰기</a>
+          <a class="button button--secondary" href="tel:01099213632">전화 상담</a>
+        </div>
+      </div>
+      <div class="case-hero__panel reveal-card" aria-label="시공사례 운영 안내">
+        <strong>관리자 게시판 방식</strong>
+        <p>관리자 화면에서 제목, 본문, 사진, 영상, 대표 이미지, 현장 정보를 입력하면 이 페이지에 자동으로 카드와 상세 페이지가 생성됩니다.</p>
+      </div>
+    </section>
+
+    <section class="section case-list-section" id="case-list" aria-labelledby="case-list-title">
+      <div class="case-list-header reveal">
+        <div>
+          <p class="eyebrow">Construction cases</p>
+          <h2 id="case-list-title">시공사례 목록</h2>
+          <p>제목, 현장 유형, 고객 요청, 시공 포인트로 원하는 사례를 검색하세요.</p>
+        </div>
+        <a class="case-admin-link" href="case-admin.html">+ 시공사례 작성</a>
+      </div>
+
+      <form class="case-search reveal-card" data-case-search aria-label="시공사례 검색">
+        <label>
+          <span>검색어</span>
+          <input type="search" name="query" placeholder="예: 신축, 아이 방, 인테리어 냄새" />
+        </label>
+        <label>
+          <span>현장 유형</span>
+          <select name="category" data-category-filter>
+            <option value="">전체</option>
+          </select>
+        </label>
+        <button class="button button--primary" type="submit">검색</button>
+        <button class="button button--secondary" type="button" data-reset-search>초기화</button>
+      </form>
+
+      <div class="case-result-count" data-case-count aria-live="polite"></div>
+      <div class="case-grid" data-case-list></div>
+      <article class="case-empty" data-case-empty hidden>
+        <h3>검색 결과가 없습니다</h3>
+        <p>다른 검색어를 입력하거나 현장 유형을 전체로 변경해보세요.</p>
+      </article>
+    </section>
+
+    <section class="section case-detail-section" data-case-detail hidden></section>
+  </main>
+
+  <button class="top-button" type="button" data-top-button aria-label="맨 위로 이동" aria-hidden="true">↑</button>
+  <div class="mobile-fixed-actions" aria-label="모바일 빠른 상담 버튼">
+    <a href="https://open.kakao.com/o/scaooume" target="_blank" rel="noopener noreferrer">카카오톡 상담</a>
+    <a href="tel:01099213632">전화 상담</a>
+  </div>
+
+  <script src="case-board.js"></script>
+  <script src="case-list.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
