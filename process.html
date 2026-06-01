@@ -14,6 +14,190 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .process-page .process-detail-section {
+      padding-top: clamp(46px, 6vw, 72px);
+      padding-bottom: clamp(54px, 7vw, 82px);
+      background: linear-gradient(180deg, #ffffff 0%, #f3f8f2 46%, #ffffff 100%);
+    }
+
+    .process-page .process-detail-section .section-heading {
+      margin-bottom: clamp(22px, 3vw, 34px);
+    }
+
+    .process-page .process-detail-section .section-heading h2 {
+      margin-bottom: 10px;
+    }
+
+    .process-page .process-detail-list {
+      display: grid;
+      gap: clamp(18px, 3vw, 30px);
+      width: 100%;
+      max-width: var(--content-max);
+      margin: 0 auto;
+    }
+
+    .process-page .process-step {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(360px, 1.18fr);
+      gap: clamp(22px, 4vw, 54px);
+      align-items: center;
+      padding: clamp(24px, 4vw, 46px) 0;
+      border-top: 1px solid rgba(49, 93, 71, 0.14);
+    }
+
+    .process-page .process-step:nth-child(even) {
+      background: linear-gradient(90deg, rgba(238, 246, 239, 0.72), rgba(255, 255, 255, 0));
+    }
+
+    .process-page .process-step--reverse .process-step__copy {
+      order: 2;
+    }
+
+    .process-page .process-step--reverse .process-step__media {
+      order: 1;
+    }
+
+    .process-page .process-step__copy {
+      padding: 0 clamp(2px, 1vw, 12px);
+    }
+
+    .process-page .process-step__number {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      color: var(--brand-deep);
+      font-size: 0.84rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .process-page .process-step__number::after {
+      width: 42px;
+      height: 1px;
+      content: "";
+      background: rgba(49, 93, 71, 0.34);
+    }
+
+    .process-page .process-step h3 {
+      margin-bottom: 12px;
+      color: var(--heading);
+      font-size: clamp(1.58rem, 3vw, 2.42rem);
+      line-height: 1.2;
+      letter-spacing: -0.055em;
+    }
+
+    .process-page .process-step__point {
+      margin-bottom: 14px;
+      color: var(--brand-dark);
+      font-size: clamp(1.02rem, 1.4vw, 1.16rem);
+      font-weight: 780;
+      line-height: 1.58;
+    }
+
+    .process-page .process-step__desc {
+      max-width: 520px;
+      margin: 0;
+      color: var(--heading-soft);
+      font-size: 1rem;
+      line-height: 1.82;
+    }
+
+    .process-page .process-step__desc + .process-step__desc {
+      margin-top: 10px;
+    }
+
+    .process-page .process-step__media {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(150px, 0.75fr);
+      gap: clamp(12px, 1.8vw, 18px);
+      align-items: stretch;
+    }
+
+    .process-page .process-step__image {
+      position: relative;
+      margin: 0;
+      display: grid;
+      min-height: clamp(220px, 26vw, 340px);
+      overflow: hidden;
+      place-items: center;
+      color: rgba(23, 56, 47, 0.78);
+      background:
+        linear-gradient(135deg, rgba(238, 246, 239, 0.96), rgba(251, 248, 239, 0.94)),
+        repeating-linear-gradient(135deg, rgba(49, 93, 71, 0.1) 0 1px, transparent 1px 12px);
+      border: 1px solid rgba(49, 93, 71, 0.16);
+      border-radius: 28px;
+      font-weight: 820;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .process-page .process-step__image--sub {
+      min-height: clamp(180px, 22vw, 286px);
+      align-self: end;
+      border-radius: 22px;
+    }
+
+    .process-page .process-step__image img {
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      object-fit: cover;
+    }
+
+    .process-page .process-step__image--contain img {
+      object-fit: contain;
+      background: #f8faf6;
+    }
+
+    .process-page .process-step__image-label {
+      padding: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .process-page .process-detail-section {
+        padding-top: 40px;
+      }
+
+      .process-page .process-step,
+      .process-page .process-step--reverse {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 28px 0;
+      }
+
+      .process-page .process-step--reverse .process-step__copy,
+      .process-page .process-step--reverse .process-step__media {
+        order: initial;
+      }
+
+      .process-page .process-step__desc {
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .process-page .process-detail-section .section-heading {
+        margin-bottom: 14px;
+      }
+
+      .process-page .process-step {
+        padding: 24px 0;
+      }
+
+      .process-page .process-step__media {
+        grid-template-columns: 1fr;
+      }
+
+      .process-page .process-step__image,
+      .process-page .process-step__image--sub {
+        min-height: 220px;
+        border-radius: 22px;
+      }
+    }
+  </style>
 </head>
 <body class="process-page">
   <header class="site-header" data-header>
@@ -100,89 +284,129 @@
       <div class="section-heading section-heading--wide reveal">
         <p class="eyebrow">Detailed steps</p>
         <h2 id="process-detail-title">상세 공정 설명</h2>
-        <p>공정별 이미지는 현장 사진이나 안내 이미지로 교체할 수 있도록 영역을 분리했습니다.</p>
+        <p>공정별 설명과 현장 이미지를 한 화면에서 확인할 수 있도록 길게 이어지는 시공 흐름으로 정리했습니다.</p>
       </div>
-      <div class="process-detail-grid">
-        <article class="process-detail-card reveal-card">
-          <div class="process-detail-card__image">공정 이미지 교체 영역</div>
-          <div class="process-detail-card__body">
-            <span>01</span>
+      <div class="process-detail-list">
+        <article class="process-step reveal-card">
+          <div class="process-step__copy">
+            <span class="process-step__number">01</span>
             <h3>현장 하자 체크</h3>
-            <p>시공 전 공간 상태를 먼저 확인합니다. 마감재 손상, 들뜸, 변색 우려가 있는 부분, 가구 상태 등을 살펴본 뒤 현장에 맞는 시공 범위를 안내합니다.</p>
+            <p class="process-step__point">시공 전 현장 상태를 먼저 확인합니다.</p>
+            <p class="process-step__desc">시공 전 공간 상태를 먼저 확인합니다. 마감재 손상, 들뜸, 변색 우려가 있는 부분, 가구 상태 등을 살펴본 뒤 현장에 맞는 시공 범위를 안내합니다.</p>
+          </div>
+          <div class="process-step__media" aria-label="현장 하자 체크 이미지 영역">
+            <figure class="process-step__image"><span class="process-step__image-label">공정 이미지 1 교체 영역</span></figure>
+            <figure class="process-step__image process-step__image--sub"><span class="process-step__image-label">공정 이미지 2 교체 영역</span></figure>
           </div>
         </article>
-        <article class="process-detail-card reveal-card">
-          <div class="process-detail-card__image">공정 이미지 교체 영역</div>
-          <div class="process-detail-card__body">
-            <span>02</span>
+        <article class="process-step process-step--reverse reveal-card">
+          <div class="process-step__copy">
+            <span class="process-step__number">02</span>
             <h3>서랍·선반·가구 내부 확인</h3>
-            <p>새가구, 붙박이장, 신발장, 싱크대 내부 마감 상태 확인 및 마감 처리가 안 된 MDF·PB 절단면, 서랍 내부, 선반 분리합니다.</p>
+            <p class="process-step__point">가구 안쪽과 절단면까지 꼼꼼하게 살핍니다.</p>
+            <p class="process-step__desc">새가구, 붙박이장, 신발장, 싱크대 내부 마감 상태 확인 및 마감 처리가 안 된 MDF·PB 절단면, 서랍 내부, 선반 분리합니다.</p>
+          </div>
+          <div class="process-step__media" aria-label="서랍·선반·가구 내부 확인 이미지 영역">
+            <figure class="process-step__image"><span class="process-step__image-label">공정 이미지 1 교체 영역</span></figure>
+            <figure class="process-step__image process-step__image--sub"><span class="process-step__image-label">공정 이미지 2 교체 영역</span></figure>
           </div>
         </article>
-        <article class="process-detail-card reveal-card">
-          <div class="process-detail-card__image">공정 이미지 교체 영역</div>
-          <div class="process-detail-card__body">
-            <span>03</span>
-            <h3>사전 측정</h3>
-            <p>시공 전 포름알데히드와 라돈 수치를 확인해 실내공기 상태를 먼저 점검합니다. 대형시설의 경우 현장 상황에 따라 VOCs 측정 가능합니다.</p>
+        <article class="process-step reveal-card">
+          <div class="process-step__copy">
+            <span class="process-step__number">03</span>
+            <h3>사전 측정 / 포름알데히드·라돈</h3>
+            <p class="process-step__point">수치 확인 후 현장에 맞는 공정을 정리합니다.</p>
+            <p class="process-step__desc">시공 전 포름알데히드와 라돈 수치를 확인해 실내공기 상태를 먼저 점검합니다. 대형시설의 경우 현장 상황에 따라 VOCs 측정 가능합니다.</p>
+          </div>
+          <div class="process-step__media" aria-label="사전 측정 / 포름알데히드·라돈 이미지 영역">
+            <figure class="process-step__image"><span class="process-step__image-label">공정 이미지 1 교체 영역</span></figure>
+            <figure class="process-step__image process-step__image--sub"><span class="process-step__image-label">공정 이미지 2 교체 영역</span></figure>
           </div>
         </article>
-        <article class="process-detail-card reveal-card">
-          <img class="process-detail-card__image" src="KakaoTalk_20260528_172926361.jpg" alt="액상 공정 시공 이미지" />
-          <div class="process-detail-card__body">
-            <span>04</span>
+        <article class="process-step process-step--reverse reveal-card">
+          <div class="process-step__copy">
+            <span class="process-step__number">04</span>
             <h3>액상 공정</h3>
-            <p>벽지, 목재, 마감재, 가구 표면 등 오염물질이 배출될 수 있는 부위에 친환경 화학 분해제 에코듀를 분사해 실내오염물질 저감에 도움을 줍니다.</p>
+            <p class="process-step__point">배출 가능 부위에 액상 공정을 진행합니다.</p>
+            <p class="process-step__desc">벽지, 목재, 마감재, 가구 표면 등 오염물질이 배출될 수 있는 부위에 친환경 화학 분해제 에코듀를 분사해 실내오염물질 저감에 도움을 줍니다.</p>
+          </div>
+          <div class="process-step__media" aria-label="액상 공정 이미지 영역">
+            <figure class="process-step__image"><img src="KakaoTalk_20260528_172926361.jpg" alt="액상 공정 시공 이미지" /></figure>
+            <figure class="process-step__image process-step__image--sub"><span class="process-step__image-label">공정 이미지 2 교체 영역</span></figure>
           </div>
         </article>
-        <article class="process-detail-card reveal-card">
-          <img class="process-detail-card__image" src="차폐.jpg" alt="차폐 공정 시공 이미지" />
-          <div class="process-detail-card__body">
-            <span>05</span>
+        <article class="process-step reveal-card">
+          <div class="process-step__copy">
+            <span class="process-step__number">05</span>
             <h3>차폐 공정</h3>
-            <p>MDF·PB 절단면, 붙박이장, 신발장, 싱크대 내부 등 서랍과 선반 가구 안쪽에서 냄새가 올라올 수 있는 지점을 차폐 공정으로 관리합니다.</p>
+            <p class="process-step__point">냄새가 올라올 수 있는 가구 내부 지점을 관리합니다.</p>
+            <p class="process-step__desc">MDF·PB 절단면, 붙박이장, 신발장, 싱크대 내부 등 서랍과 선반 가구 안쪽에서 냄새가 올라올 수 있는 지점을 차폐 공정으로 관리합니다.</p>
+          </div>
+          <div class="process-step__media" aria-label="차폐 공정 이미지 영역">
+            <figure class="process-step__image"><img src="차폐.jpg" alt="차폐 공정 시공 이미지" /></figure>
+            <figure class="process-step__image process-step__image--sub"><span class="process-step__image-label">공정 이미지 2 교체 영역</span></figure>
           </div>
         </article>
-        <article class="process-detail-card reveal-card">
-          <img class="process-detail-card__image" src="KakaoTalk_20260528_172926361_01.jpg" alt="오존 공정 시공 이미지" />
-          <div class="process-detail-card__body">
-            <span>06</span>
+        <article class="process-step process-step--reverse reveal-card">
+          <div class="process-step__copy">
+            <span class="process-step__number">06</span>
             <h3>오존 공정</h3>
-            <p>오존 산화 공정을 통해 포름알데히드와 VOCs 등 냄새 원인물질 저감에 도움을 주는 공정을 진행합니다. 오존 시공 중에는 출입을 금하고 있습니다.</p>
+            <p class="process-step__point">오존 산화 공정으로 냄새 원인물질 저감을 돕습니다.</p>
+            <p class="process-step__desc">오존 산화 공정을 통해 포름알데히드와 VOCs 등 냄새 원인물질 저감에 도움을 주는 공정을 진행합니다. 오존 시공 중에는 출입을 금하고 있습니다.</p>
+          </div>
+          <div class="process-step__media" aria-label="오존 공정 이미지 영역">
+            <figure class="process-step__image"><img src="KakaoTalk_20260528_172926361_01.jpg" alt="오존 공정 시공 이미지" /></figure>
+            <figure class="process-step__image process-step__image--sub"><span class="process-step__image-label">공정 이미지 2 교체 영역</span></figure>
           </div>
         </article>
-        <article class="process-detail-card reveal-card">
-          <img class="process-detail-card__image" src="KakaoTalk_20260528_172926361_03.jpg" alt="공기정화 공정 시공 이미지" />
-          <div class="process-detail-card__body">
-            <span>07</span>
+        <article class="process-step reveal-card">
+          <div class="process-step__copy">
+            <span class="process-step__number">07</span>
             <h3>공기정화 공정</h3>
-            <p>H14 헤파 필터 집진 장비를 활용해 미세입자와 잔여 오염요인을 관리하고, 시공 후 실내 공기 상태를 정리합니다.</p>
+            <p class="process-step__point">H14 집진 장비로 실내 공기 상태를 정리합니다.</p>
+            <p class="process-step__desc">H14 헤파 필터 집진 장비를 활용해 미세입자와 잔여 오염요인을 관리하고, 시공 후 실내 공기 상태를 정리합니다.</p>
+          </div>
+          <div class="process-step__media" aria-label="공기정화 공정 이미지 영역">
+            <figure class="process-step__image"><img src="KakaoTalk_20260528_172926361_03.jpg" alt="공기정화 공정 시공 이미지" /></figure>
+            <figure class="process-step__image process-step__image--sub"><span class="process-step__image-label">공정 이미지 2 교체 영역</span></figure>
           </div>
         </article>
-        <article class="process-detail-card reveal-card">
-          <div class="process-detail-card__image">공정 이미지 교체 영역</div>
-          <div class="process-detail-card__body">
-            <span>08</span>
-            <h3>사후 측정</h3>
-            <p>시공 후 포름알데히드와 라돈 수치를 다시 확인해 고객이 시공 전후 달라진 실내환경을 비교할 수 있도록 안내합니다. 대형시설은 필요 시 VOCs 측정 결과와 시공 결과 보고서 작성 해 드립니다.</p>
+        <article class="process-step process-step--reverse reveal-card">
+          <div class="process-step__copy">
+            <span class="process-step__number">08</span>
+            <h3>사후 측정 / 포름알데히드·라돈</h3>
+            <p class="process-step__point">시공 전후 수치를 비교할 수 있도록 안내합니다.</p>
+            <p class="process-step__desc">시공 후 포름알데히드와 라돈 수치를 다시 확인해 고객이 시공 전후 달라진 실내환경을 비교할 수 있도록 안내합니다. 대형시설은 필요 시 VOCs 측정 결과와 시공 결과 보고서 작성 해 드립니다.</p>
+          </div>
+          <div class="process-step__media" aria-label="사후 측정 / 포름알데히드·라돈 이미지 영역">
+            <figure class="process-step__image"><span class="process-step__image-label">공정 이미지 1 교체 영역</span></figure>
+            <figure class="process-step__image process-step__image--sub"><span class="process-step__image-label">공정 이미지 2 교체 영역</span></figure>
           </div>
         </article>
-        <article class="process-detail-card reveal-card">
-          <div class="process-detail-card__image">공정 이미지 교체 영역</div>
-          <div class="process-detail-card__body">
-            <span>09</span>
+        <article class="process-step reveal-card">
+          <div class="process-step__copy">
+            <span class="process-step__number">09</span>
             <h3>카카오톡 시공 내용 공유</h3>
-            <p>시공 과정, 측정 내용, 현장 확인 사항은 사진과 함께 카카오톡으로 공유할 수 있습니다. 고객이 현장에 없더라도 진행 과정을 확인할 수 있도록 안내합니다.</p>
+            <p class="process-step__point">사진과 내용으로 진행 과정을 공유합니다.</p>
+            <p class="process-step__desc">시공 과정, 측정 내용, 현장 확인 사항은 사진과 함께 카카오톡으로 공유할 수 있습니다. 고객이 현장에 없더라도 진행 과정을 확인할 수 있도록 안내합니다.</p>
+          </div>
+          <div class="process-step__media" aria-label="카카오톡 시공 내용 공유 이미지 영역">
+            <figure class="process-step__image"><span class="process-step__image-label">공정 이미지 1 교체 영역</span></figure>
+            <figure class="process-step__image process-step__image--sub"><span class="process-step__image-label">공정 이미지 2 교체 영역</span></figure>
           </div>
         </article>
-        <article class="process-detail-card process-detail-card--wide reveal-card">
-          <div class="process-detail-card__image">공정 이미지 교체 영역</div>
-          <div class="process-detail-card__body">
-            <span>10</span>
-            <h3>공식 서비스 안내</h3>
-            <p>반딧불이 공식 서비스인 먼지다듬이 방역 소독, 피톤치드 관리, 입주 후 새가구 서비스는 현장 상황에 따라 안내드릴 수 있습니다.</p>
-            <p>28도 이상의 고온 베이크아웃, 온열기 작동, 에어컨·전열교환기 소독은 마감재나 내부 부품 손상 우려가 있을 수 있어 모든 현장에 동일하게 진행하지는 않습니다.</p>
-            <p>즉, 반딧불이 시공은 무조건 많은 작업을 추가하는 방식이 아니라, 시공 현장 상태를 확인한 뒤 안전하게 필요한 공정을 진행하는 것을 원칙으로 합니다.</p>
+        <article class="process-step process-step--reverse reveal-card">
+          <div class="process-step__copy">
+            <span class="process-step__number">10</span>
+            <h3>현장 상황별 공식 서비스 안내</h3>
+            <p class="process-step__point">공간 상태에 맞는 공식 서비스를 안내합니다.</p>
+            <p class="process-step__desc">반딧불이 공식 서비스인 먼지다듬이 방역 소독, 피톤치드 관리, 입주 후 새가구 서비스는 현장 상황에 따라 안내드릴 수 있습니다.</p>
+            <p class="process-step__desc">28도 이상의 고온 베이크아웃, 온열기 작동, 에어컨·전열교환기 소독은 마감재나 내부 부품 손상 우려가 있을 수 있어 모든 현장에 동일하게 진행하지는 않습니다.</p>
+            <p class="process-step__desc">즉, 반딧불이 시공은 무조건 많은 작업을 추가하는 방식이 아니라, 시공 현장 상태를 확인한 뒤 안전하게 필요한 공정을 진행하는 것을 원칙으로 합니다.</p>
+          </div>
+          <div class="process-step__media" aria-label="현장 상황별 공식 서비스 안내 이미지 영역">
+            <figure class="process-step__image"><span class="process-step__image-label">공정 이미지 1 교체 영역</span></figure>
+            <figure class="process-step__image process-step__image--sub"><span class="process-step__image-label">공정 이미지 2 교체 영역</span></figure>
           </div>
         </article>
       </div>
