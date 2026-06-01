@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>시공사례 관리자 | 반딧불이 새집증후군</title>
+  <meta name="description" content="반딧불이 새집증후군 시공사례 글쓰기 관리자 화면입니다." />
+  <meta name="theme-color" content="#f7f5ef" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="case-admin-page">
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html#top" aria-label="반딧불이 새집증후군 홈으로 이동">
+      <img class="brand__icon" src="bandibuli-icon.png" alt="" aria-hidden="true" />
+      <span>반딧불이 새집증후군</span>
+    </a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="index.html#expert">시공정보</a>
+      <a href="process.html">시공공정</a>
+      <a href="cases.html">시공사례</a>
+      <a href="case-admin.html" aria-current="page">관리자</a>
+      <a href="index.html#faq">FAQ</a>
+    </nav>
+    <div class="header-actions" aria-label="상담 바로가기">
+      <a class="header-phone" href="tel:01099213632">010-9921-3632</a>
+      <a class="header-cta" href="cases.html">사례 보기</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="section admin-hero" aria-labelledby="admin-title">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Case admin</p>
+        <h1 id="admin-title">네이버 블로그처럼 쉽게 쓰는 시공사례 관리자</h1>
+        <p>현장 사진과 영상을 선택하고, 대표 이미지를 지정한 뒤 발행하면 시공사례 목록과 상세 페이지에 자동으로 반영됩니다.</p>
+      </div>
+    </section>
+
+    <section class="section admin-workspace" aria-label="시공사례 글쓰기와 관리">
+      <form class="case-admin-form reveal-card" data-admin-form>
+        <input type="hidden" name="id" />
+        <div class="admin-toolbar">
+          <strong data-form-mode>새 시공사례 작성</strong>
+          <div>
+            <button class="button button--secondary" type="button" data-new-post>새 글</button>
+            <button class="button button--primary" type="submit">바로 발행</button>
+          </div>
+        </div>
+
+        <p class="privacy-notice">카카오톡 캡처, 고객명, 전화번호, 주소, 동호수 등 개인정보가 포함된 이미지는 반드시 가린 뒤 업로드해주세요.</p>
+
+        <label class="admin-field admin-field--wide">
+          <span>제목</span>
+          <input name="title" type="text" placeholder="예: 마포 신축 아파트 입주 전 새집증후군 시공" required />
+        </label>
+
+        <div class="admin-grid-two">
+          <label class="admin-field">
+            <span>현장 유형</span>
+            <select name="category" data-category-select required></select>
+          </label>
+          <label class="admin-field">
+            <span>대표 이미지</span>
+            <select name="coverImageId" data-cover-select>
+              <option value="">사진 업로드 후 선택</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="admin-field admin-field--wide">
+          <span>고객 요청</span>
+          <input name="customerRequest" type="text" placeholder="고객이 처음 요청한 내용" required />
+        </label>
+
+        <label class="admin-field admin-field--wide">
+          <span>현장 상태</span>
+          <textarea name="siteCondition" rows="3" placeholder="냄새가 강한 공간, 마감재, 가구 반입 상태 등을 적어주세요."></textarea>
+        </label>
+
+        <label class="admin-field admin-field--wide">
+          <span>시공 포인트</span>
+          <textarea name="constructionPoint" rows="3" placeholder="이번 현장에서 특히 집중한 관리 포인트" required></textarea>
+        </label>
+
+        <fieldset class="admin-processes">
+          <legend>진행 공정 선택</legend>
+          <div data-process-options></div>
+        </fieldset>
+
+        <label class="admin-field admin-field--wide">
+          <span>본문 글 작성</span>
+          <textarea name="body" rows="12" placeholder="네이버 블로그처럼 현장 설명을 자유롭게 작성하세요. 업로드한 사진의 ‘본문에 넣기’ 버튼을 누르면 커서 위치에 사진이 들어갑니다." required></textarea>
+        </label>
+
+        <div class="admin-upload-panel">
+          <label class="admin-uploader">
+            <span>사진 여러 장 업로드</span>
+            <input type="file" accept="image/*" multiple data-image-input />
+            <small>선택한 사진은 아래 목록에서 대표 이미지로 지정하거나 본문에 삽입할 수 있습니다.</small>
+          </label>
+          <div class="admin-media-list" data-image-list aria-live="polite"></div>
+        </div>
+
+        <div class="admin-upload-panel">
+          <label class="admin-uploader">
+            <span>동영상 직접 업로드</span>
+            <input type="file" accept="video/*" data-video-input />
+            <small>브라우저 저장소 용량에 따라 큰 영상은 저장이 제한될 수 있습니다. 용량이 큰 영상은 유튜브 링크를 권장합니다.</small>
+          </label>
+          <label class="admin-field admin-field--wide">
+            <span>유튜브 링크 삽입</span>
+            <input name="youtubeUrl" type="url" placeholder="https://www.youtube.com/watch?v=..." />
+          </label>
+          <div class="admin-video-preview" data-video-preview></div>
+        </div>
+
+        <div class="admin-submit-row">
+          <button class="button button--secondary" type="button" data-new-post>초기화</button>
+          <button class="button button--primary" type="submit">작성 후 바로 발행</button>
+        </div>
+      </form>
+
+      <aside class="admin-posts reveal-card" aria-labelledby="admin-posts-title">
+        <div class="admin-posts__head">
+          <h2 id="admin-posts-title">등록된 시공사례</h2>
+          <a href="cases.html">목록 페이지 보기</a>
+        </div>
+        <div data-admin-posts></div>
+      </aside>
+    </section>
+  </main>
+
+  <button class="top-button" type="button" data-top-button aria-label="맨 위로 이동" aria-hidden="true">↑</button>
+  <script src="case-board.js"></script>
+  <script src="case-admin.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
