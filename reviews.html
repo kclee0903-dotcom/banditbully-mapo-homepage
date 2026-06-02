@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>고객 리뷰 | 반딧불이 새집증후군</title>
+  <meta name="description" content="반딧불이 새집증후군 실제 시공 후 고객님들이 남겨주신 고객 리뷰와 후기 이미지입니다." />
+  <meta name="theme-color" content="#f7f5ef" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="review-page">
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html#top" aria-label="반딧불이 새집증후군 홈으로 이동">
+      <img class="brand__icon" src="bandibuli-icon.png" alt="" aria-hidden="true" />
+      <span>반딧불이 새집증후군</span>
+    </a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="index.html#expert">시공정보</a>
+      <a href="process.html">시공공정</a>
+      <a href="cases.html">시공사례</a>
+      <a href="index.html#videos">시공영상</a>
+      <a href="reviews.html" aria-current="page">고객 리뷰</a>
+      <a href="index.html#faq">FAQ</a>
+    </nav>
+    <div class="header-actions" aria-label="상담 바로가기">
+      <a class="header-phone" href="tel:01099213632">010-9921-3632</a>
+      <a class="header-cta" href="https://open.kakao.com/o/scaooume" target="_blank" rel="noopener noreferrer">상담 문의</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="review-hero section" aria-labelledby="review-title">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Customer reviews</p>
+        <h1 id="review-title">고객 리뷰</h1>
+        <p>실제 시공 후 고객님들이 남겨주신 후기입니다.</p>
+      </div>
+    </section>
+
+    <section class="section review-list-section" aria-label="고객 리뷰 목록">
+      <div class="review-list-header reveal">
+        <div>
+          <p class="eyebrow">Real feedback</p>
+          <h2>시공 후 고객 후기</h2>
+          <p data-review-count>고객 리뷰를 불러오는 중입니다.</p>
+        </div>
+      </div>
+      <div class="review-grid" data-review-list></div>
+      <article class="review-empty" data-review-empty hidden>
+        <h3>등록된 고객 리뷰가 없습니다</h3>
+        <p>관리자 페이지에서 첫 리뷰를 등록해주세요.</p>
+      </article>
+    </section>
+
+    <section class="section review-consult-section" aria-label="상담 문의 유도">
+      <div class="review-consult-box reveal-card">
+        <h2>우리 집도 입주 전 실내공기 상태가 걱정된다면, 먼저 상담해보세요.</h2>
+        <a class="button button--primary" href="index.html#contact">상담 문의하기</a>
+      </div>
+    </section>
+  </main>
+
+  <button class="top-button" type="button" data-top-button aria-label="맨 위로 이동" aria-hidden="true">↑</button>
+  <div class="mobile-fixed-actions" aria-label="모바일 빠른 상담 버튼">
+    <a href="https://open.kakao.com/o/scaooume" target="_blank" rel="noopener noreferrer">카카오톡 상담</a>
+    <a href="tel:01099213632">전화 상담</a>
+  </div>
+
+  <script src="review-board.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

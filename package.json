@@ -1,0 +1,11 @@
+{
+  "name": "banditbully-mapo-homepage",
+  "version": "1.0.0",
+  "private": true,
+  "description": "반딧불이 새집증후군 정적 홈페이지와 리뷰 관리자 API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js"
+  }
+}
