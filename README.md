@@ -45,3 +45,12 @@
 - `/admin/login.html`, `/admin/reviews.html`에는 `noindex` 메타태그가 있으며 `robots.txt`도 `/admin/`을 차단합니다.
 - RLS가 활성화되어 있고, 공개 사용자가 `approved` 이외 리뷰 목록을 읽을 수 없는지 확인하세요.
 - 관리자 권한은 Supabase Auth 사용자 `app_metadata`로만 부여하세요.
+
+## 대표 도메인 및 검색엔진 설정
+
+- 대표 도메인: `https://bandibuli-saezip.com`
+- GitHub Pages custom domain 값: `bandibuli-saezip.com`
+- `CNAME` 파일에는 프로토콜 없이 `bandibuli-saezip.com`만 입력합니다.
+- 사이트맵 주소: `https://bandibuli-saezip.com/sitemap.xml`
+- robots.txt 주소: `https://bandibuli-saezip.com/robots.txt`
+- Supabase Auth의 Site URL 또는 Redirect URL 허용 목록에는 운영 도메인 `https://bandibuli-saezip.com`을 추가하세요.
