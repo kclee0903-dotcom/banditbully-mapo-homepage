@@ -245,6 +245,15 @@ p { color: var(--body); line-height: 1.86; }
   background: linear-gradient(135deg, rgba(247, 242, 230, 0.94), rgba(237, 245, 238, 0.76));
   box-shadow: var(--shadow-soft);
 }
+.intro__heading .eyebrow {
+  max-width: none;
+  padding: 8px 14px;
+  color: #ffffff;
+  background: var(--brand-forest);
+  font-size: 0.8rem;
+  font-weight: 820;
+  line-height: 1.2;
+}
 .intro__heading h2 { margin-bottom: 22px; }
 .intro__heading p {
   max-width: 900px;
