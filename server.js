@@ -8,8 +8,8 @@ const ROOT_DIR = __dirname;
 const DATA_FILE = path.join(ROOT_DIR, 'data', 'reviews.json');
 const UPLOAD_DIR = path.join(ROOT_DIR, 'public', 'uploads', 'reviews');
 const SESSION_COOKIE = 'bandibuli_admin_session';
-const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
-const ALLOWED_MIME_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
+const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
+const ALLOWED_MIME_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif']);
 const SITE_TYPES = ['신축 아파트', '구축 올수리', '새가구 반입', '인테리어 후 냄새', '대형시설', '기타'];
 const STATIC_TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'application/javascript; charset=utf-8',
@@ -26,7 +26,7 @@ const ensureStorage = async () => {
 const readReviews = async () => {
   await ensureStorage();
   const reviews = JSON.parse(await fs.readFile(DATA_FILE, 'utf8') || '[]');
-  return reviews.sort((a, b) => new Date(b.reviewDate || b.createdAt) - new Date(a.reviewDate || a.createdAt));
+  return reviews.sort((a, b) => new Date(b.display_date || b.created_at) - new Date(a.display_date || a.created_at));
 };
 
 const writeReviews = async (reviews) => {
@@ -109,20 +109,22 @@ const requireAdmin = (req, res) => {
 
 const normalizeReview = (body, existing = {}) => {
   const rating = Math.min(5, Math.max(1, Number(body.rating || existing.rating || 5)));
+  const status = ['pending', 'approved', 'hidden', 'rejected'].includes(body.status) ? body.status : (existing.status || 'pending');
   return {
     ...existing,
-    id: existing.id || `review-${Date.now()}-${crypto.randomBytes(4).toString('hex')}`,
-    name: String(body.name || '').trim() || '익명 고객',
-    siteType: SITE_TYPES.includes(body.siteType) ? body.siteType : '기타',
-    location: String(body.location || '').trim(),
+    id: existing.id || crypto.randomUUID(),
+    nickname: String(body.nickname || existing.nickname || '').trim() || '익명',
+    site_type: SITE_TYPES.includes(body.site_type) ? body.site_type : (existing.site_type || '기타'),
     rating,
-    content: String(body.content || '').trim(),
-    afterNote: String(body.afterNote || '').trim(),
-    reviewDate: body.reviewDate || existing.reviewDate || new Date().toISOString().slice(0, 10),
-    imageUrl: body.imageUrl === '' ? '' : (body.imageUrl || existing.imageUrl || ''),
-    imageAlt: String(body.imageAlt || '').trim(),
-    createdAt: existing.createdAt || new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    review_text: String(body.review_text || existing.review_text || '').trim(),
+    image_url: body.image_url === '' ? '' : (body.image_url || existing.image_url || ''),
+    status,
+    confirm_token: existing.confirm_token || body.confirm_token || crypto.randomBytes(32).toString('hex'),
+    consent_agreed: Boolean(body.consent_agreed ?? existing.consent_agreed ?? true),
+    display_date: existing.display_date || body.display_date || new Date().toISOString().slice(0, 10),
+    created_at: existing.created_at || new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    approved_at: status === 'approved' ? (existing.approved_at || new Date().toISOString()) : (existing.approved_at || null)
   };
 };
 
@@ -146,13 +148,17 @@ const parseMultipartImage = async (req) => {
   const data = filePart.subarray(headerEnd + 4);
   const filename = (header.match(/filename="([^"]+)"/) || [])[1] || 'review-image.jpg';
   const mimeType = (header.match(/Content-Type:\s*([^\r\n]+)/i) || [])[1] || '';
-  if (!ALLOWED_MIME_TYPES.has(mimeType)) throw new Error('jpg, jpeg, png, webp 이미지만 업로드할 수 있습니다.');
-  if (data.length > MAX_IMAGE_BYTES) throw new Error('이미지는 5MB 이하만 업로드할 수 있습니다.');
+  if (!ALLOWED_MIME_TYPES.has(mimeType)) throw new Error('jpg, jpeg, png, webp, gif 이미지만 업로드할 수 있습니다.');
+  const limit = mimeType === 'image/gif' ? 10 * 1024 * 1024 : 5 * 1024 * 1024;
+  if (data.length > limit) throw new Error(mimeType === 'image/gif' ? 'GIF는 10MB 이하만 업로드할 수 있습니다.' : '이미지는 5MB 이하만 업로드할 수 있습니다.');
   return { filename, mimeType, data };
 };
 
 const handleApi = async (req, res, url) => {
-  if (req.method === 'GET' && url.pathname === '/api/reviews') return sendJson(res, 200, await readReviews());
+  if (req.method === 'GET' && url.pathname === '/api/reviews') {
+    const reviews = await readReviews();
+    return sendJson(res, 200, reviews.filter((review) => review.status === 'approved'));
+  }
 
   if (req.method === 'POST' && url.pathname === '/api/admin/login') {
     const { id, password, secret } = getCredentials();
@@ -180,10 +186,10 @@ const handleApi = async (req, res, url) => {
 
   if (req.method === 'POST' && url.pathname === '/api/admin/reviews/upload') {
     const file = await parseMultipartImage(req);
-    const ext = path.extname(file.filename).toLowerCase() || (file.mimeType === 'image/png' ? '.png' : file.mimeType === 'image/webp' ? '.webp' : '.jpg');
+    const ext = path.extname(file.filename).toLowerCase() || (file.mimeType === 'image/png' ? '.png' : file.mimeType === 'image/webp' ? '.webp' : file.mimeType === 'image/gif' ? '.gif' : '.jpg');
     const safeName = `review-${new Date().toISOString().replace(/[:.]/g, '-')}-${crypto.randomBytes(5).toString('hex')}${ext}`;
     await fs.writeFile(path.join(UPLOAD_DIR, safeName), file.data);
-    return sendJson(res, 201, { imageUrl: `/uploads/reviews/${safeName}`, imageAlt: file.filename });
+    return sendJson(res, 201, { image_url: `/uploads/reviews/${safeName}` });
   }
 
   if (req.method === 'POST' && url.pathname === '/api/admin/reviews') {
@@ -232,7 +238,7 @@ const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, `http://${req.headers.host}`);
     if (url.pathname.startsWith('/api/')) return await handleApi(req, res, url);
-    if (url.pathname === '/admin' || url.pathname === '/admin/reviews') return await serveStatic(res, '/admin-reviews.html');
+    if (url.pathname === '/admin' || url.pathname === '/admin/reviews') return await serveStatic(res, '/admin/reviews.html');
     if (url.pathname.startsWith('/uploads/')) return await serveStatic(res, `/public${url.pathname}`);
     return await serveStatic(res, decodeURIComponent(url.pathname));
   } catch (error) {

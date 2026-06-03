@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>리뷰 관리 | 반딧불이 새집증후군</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#f7f5ef" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body class="review-admin-page">
+  <header class="site-header" data-header>
+    <a class="brand" href="../index.html#top" aria-label="반딧불이 새집증후군 홈으로 이동">
+      <img class="brand__icon" src="../bandibuli-icon.png" alt="" aria-hidden="true" />
+      <span>반딧불이 새집증후군</span>
+    </a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="../index.html#expert">시공정보</a>
+      <a href="../process.html">시공공정</a>
+      <a href="../cases.html">시공사례</a>
+      <a href="../reviews.html">고객 리뷰</a>
+      <a href="reviews.html" aria-current="page">리뷰 관리</a>
+    </nav>
+    <div class="header-actions">
+      <button class="header-cta" type="button" data-admin-logout>로그아웃</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="section admin-hero" aria-labelledby="admin-reviews-title">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Review admin</p>
+        <h1 id="admin-reviews-title">고객 리뷰 관리</h1>
+        <p>승인된 리뷰만 공개 고객 리뷰 페이지에 표시됩니다.</p>
+      </div>
+    </section>
+
+    <section class="section admin-workspace" data-admin-app hidden>
+      <div class="admin-toolbar review-link-toolbar reveal-card">
+        <strong>고객 후기 작성 링크: /review-submit.html</strong>
+        <button class="button button--secondary" type="button" data-copy-submit-link>링크 복사하기</button>
+      </div>
+      <div class="review-admin-tabs" role="tablist" aria-label="리뷰 상태 필터">
+        <button class="button button--primary" type="button" data-status-filter="pending">승인 대기</button>
+        <button class="button button--secondary" type="button" data-status-filter="approved">승인된 리뷰</button>
+        <button class="button button--secondary" type="button" data-status-filter="hidden">비공개 리뷰</button>
+        <button class="button button--secondary" type="button" data-status-filter="rejected">반려 리뷰</button>
+      </div>
+      <div class="admin-layout-two">
+        <section class="admin-posts reveal-card" aria-label="리뷰 목록">
+          <div class="admin-posts__head">
+            <h2 data-list-title>승인 대기 리뷰</h2>
+            <button class="button button--secondary" type="button" data-new-review>관리자 직접 리뷰 작성</button>
+          </div>
+          <div data-admin-review-list></div>
+        </section>
+
+        <form class="case-admin-form reveal-card" data-admin-review-form>
+          <input name="id" type="hidden" />
+          <input name="image_url" type="hidden" />
+          <h2 data-form-title>관리자 직접 리뷰 작성</h2>
+          <div class="admin-grid-two">
+            <label class="admin-field">닉네임
+              <input name="nickname" type="text" maxlength="30" required />
+            </label>
+            <label class="admin-field">현장 유형
+              <select name="site_type" required>
+                <option>신축 아파트</option>
+                <option>구축 올수리</option>
+                <option>새가구 반입</option>
+                <option>인테리어 후 냄새</option>
+                <option>대형시설</option>
+                <option>기타</option>
+              </select>
+            </label>
+          </div>
+          <div class="admin-grid-two">
+            <label class="admin-field">별점
+              <select name="rating" required>
+                <option value="5">5점</option>
+                <option value="4">4점</option>
+                <option value="3">3점</option>
+                <option value="2">2점</option>
+                <option value="1">1점</option>
+              </select>
+            </label>
+            <label class="admin-field">상태 선택
+              <select name="status" required>
+                <option value="approved">approved</option>
+                <option value="pending">pending</option>
+                <option value="hidden">hidden</option>
+                <option value="rejected">rejected</option>
+              </select>
+            </label>
+          </div>
+          <label class="admin-field">리뷰 내용
+            <textarea name="review_text" rows="8" minlength="20" required></textarea>
+          </label>
+          <label class="admin-field">이미지 또는 GIF 업로드
+            <input name="review_image" type="file" accept="image/jpeg,image/png,image/webp,image/gif" />
+            <small>jpg, jpeg, png, webp는 5MB 이하, gif는 10MB 이하입니다. GIF는 홈페이지 속도를 느리게 할 수 있으므로 꼭 필요한 경우에만 사용하는 것을 권장합니다.</small>
+          </label>
+          <div class="review-image-preview" data-admin-image-preview></div>
+          <p class="admin-error" data-admin-review-error aria-live="polite"></p>
+          <div class="admin-submit-row">
+            <button class="button button--secondary" type="button" data-reset-form>초기화</button>
+            <button class="button button--primary" type="submit">리뷰 저장</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../supabase-config.js"></script>
+  <script src="reviews.js"></script>
+  <script src="../script.js"></script>
+</body>
+</html>

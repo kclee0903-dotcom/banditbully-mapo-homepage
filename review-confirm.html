@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>후기 접수 확인 | 반딧불이 새집증후군</title>
+  <meta name="description" content="반딧불이 새집증후군 고객 후기 접수 내용을 확인하는 페이지입니다." />
+  <meta name="theme-color" content="#f7f5ef" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="review-page">
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html#top" aria-label="반딧불이 새집증후군 홈으로 이동">
+      <img class="brand__icon" src="bandibuli-icon.png" alt="" aria-hidden="true" />
+      <span>반딧불이 새집증후군</span>
+    </a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="index.html#expert">시공정보</a>
+      <a href="process.html">시공공정</a>
+      <a href="cases.html">시공사례</a>
+      <a href="index.html#videos">시공영상</a>
+      <a href="reviews.html">고객 리뷰</a>
+      <a href="index.html#faq">FAQ</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="review-hero section" aria-labelledby="review-confirm-title">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Review confirmation</p>
+        <h1 id="review-confirm-title">후기 접수 확인</h1>
+        <p>후기가 접수되었습니다. 작성하신 내용은 아래에서 확인하실 수 있습니다. 후기는 관리자 확인 후 고객 리뷰 페이지에 공개됩니다.</p>
+      </div>
+    </section>
+    <section class="section review-confirm-section" aria-live="polite">
+      <div class="review-confirm-card reveal-card" data-review-confirm>
+        <p>후기 내용을 불러오는 중입니다.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="review-confirm.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
