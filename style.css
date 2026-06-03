@@ -378,6 +378,14 @@ p { color: var(--body); line-height: 1.86; }
 
 .premium-brand__heading .eyebrow { color: var(--brand-deep); }
 
+#expert .premium-brand__heading .eyebrow {
+  color: #ffffff;
+  font-weight: 840;
+  letter-spacing: 0.075em;
+  line-height: 1.4;
+  padding: 7px 13px;
+}
+
 .premium-brand__heading h2 {
   max-width: 740px;
   margin-right: 0;
