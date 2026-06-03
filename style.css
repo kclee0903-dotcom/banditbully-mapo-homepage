@@ -932,7 +932,7 @@ details {
 }
 
 .process-page main {
-  background: linear-gradient(180deg, #fbfaf6 0%, #f2f5f1 48%, #fbfaf6 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #fffdf8 44%, #ffffff 100%);
 }
 
 .process-hero {
@@ -945,7 +945,7 @@ details {
   min-height: calc(100vh - 82px);
   overflow: hidden;
   padding-top: clamp(72px, 9vw, 118px);
-  background: #eef4f2;
+  background: #ffffff;
 }
 
 .process-hero::before {
@@ -954,10 +954,10 @@ details {
   z-index: -2;
   content: "";
   background:
-    linear-gradient(90deg, rgba(247, 250, 248, 0.94) 0%, rgba(247, 250, 248, 0.86) 42%, rgba(247, 250, 248, 0.54) 68%, rgba(247, 250, 248, 0.28) 100%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(236, 243, 241, 0.7)),
+    radial-gradient(circle at 12% 8%, rgba(47, 101, 77, 0.065), transparent 28%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 253, 248, 0.92) 50%, rgba(247, 242, 230, 0.72) 100%),
     url("images/process-hero-clean-apartment.jpg") center / cover no-repeat,
-    linear-gradient(135deg, #f8fbfa 0%, #e7f0ee 52%, #d6e3df 100%);
+    linear-gradient(135deg, #ffffff 0%, #fffdf8 52%, #f7f2e6 100%);
 }
 
 .process-hero::after {
@@ -1062,10 +1062,10 @@ details {
   display: grid;
   gap: 16px;
   padding: clamp(24px, 3vw, 34px);
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.68);
+  background: rgba(255, 253, 248, 0.94);
+  border: 1px solid rgba(35, 95, 67, 0.13);
   border-radius: 30px;
-  box-shadow: 0 24px 70px rgba(31, 47, 41, 0.16);
+  box-shadow: 0 24px 70px rgba(31, 47, 41, 0.13);
   backdrop-filter: blur(18px);
 }
 
@@ -1083,8 +1083,8 @@ details {
   gap: 14px;
   align-items: start;
   padding: 16px;
-  background: rgba(247, 250, 248, 0.84);
-  border: 1px solid rgba(49, 93, 71, 0.1);
+  background: linear-gradient(135deg, rgba(247, 242, 230, 0.92), rgba(255, 253, 248, 0.94));
+  border: 1px solid rgba(35, 95, 67, 0.12);
   border-radius: 22px;
 }
 
@@ -1138,8 +1138,8 @@ details {
   position: relative;
   min-height: 154px;
   padding: 24px 18px 22px;
-  background: linear-gradient(180deg, #ffffff, #f8faf6);
-  border: 1px solid rgba(49, 93, 71, 0.14);
+  background: linear-gradient(180deg, #ffffff, #fffdf8);
+  border: 1px solid rgba(35, 95, 67, 0.13);
   border-radius: 26px;
   box-shadow: var(--shadow-soft);
 }
@@ -1167,9 +1167,10 @@ details {
   min-width: 42px;
   height: 42px;
   margin-bottom: 16px;
-  color: #2a250d;
-  background: linear-gradient(135deg, #f8d85e, var(--brand));
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--brand-forest), var(--brand-forest-dark));
   border-radius: 999px;
+  box-shadow: 0 10px 22px rgba(23, 66, 49, 0.18);
   font-weight: 800;
 }
 
@@ -1182,7 +1183,7 @@ details {
 }
 
 .process-detail-section {
-  background: var(--mist);
+  background: #ffffff;
 }
 
 .process-detail-grid {
@@ -1247,7 +1248,7 @@ img.process-detail-card__image {
   grid-template-columns: minmax(0, 1fr) minmax(280px, 0.48fr);
   gap: 28px;
   align-items: center;
-  background: linear-gradient(135deg, #1f2f29, #315d47);
+  background: linear-gradient(135deg, var(--brand-forest-dark), var(--brand-forest));
 }
 
 .process-consult__content h2,
@@ -1286,9 +1287,10 @@ img.process-detail-card__image {
   .process-hero { min-height: auto; }
   .process-hero::before {
     background:
-      linear-gradient(180deg, rgba(247, 250, 248, 0.96) 0%, rgba(247, 250, 248, 0.9) 56%, rgba(247, 250, 248, 0.7) 100%),
+      radial-gradient(circle at 12% 8%, rgba(47, 101, 77, 0.06), transparent 30%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 253, 248, 0.94) 58%, rgba(247, 242, 230, 0.78) 100%),
       url("images/process-hero-clean-apartment.jpg") center / cover no-repeat,
-      linear-gradient(135deg, #f8fbfa 0%, #e7f0ee 52%, #d6e3df 100%);
+      linear-gradient(135deg, #ffffff 0%, #fffdf8 52%, #f7f2e6 100%);
   }
 }
 
