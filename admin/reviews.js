@@ -239,7 +239,7 @@ const initAdminEvents = () => {
   document.querySelector('[data-reset-form]').addEventListener('click', resetForm);
   document.querySelector('[data-new-review]').addEventListener('click', resetForm);
   document.querySelector('[data-copy-submit-link]').addEventListener('click', async () => {
-    await navigator.clipboard.writeText(`${window.location.origin}/review-submit.html`);
+    await navigator.clipboard.writeText(new URL('../review-submit.html', window.location.href).href);
     alert('고객 후기 작성 링크를 복사했습니다.');
   });
   document.querySelector('[data-admin-logout]').addEventListener('click', async () => {
