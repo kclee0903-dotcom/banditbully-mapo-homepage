@@ -2,7 +2,7 @@ const CASE_DB_NAME = 'bandibuliConstructionCases';
 const CASE_DB_VERSION = 1;
 const CASE_STORE_NAME = 'cases';
 const CASE_CATEGORIES = ['신축 아파트', '구축 올수리', '새가구 반입', '인테리어 후 냄새', '아이 있는 집', '대형시설', '기타'];
-const CASE_PROCESSES = ['현장 점검', '유해물질 제거제', '차폐 공정', '오존 산화', '공기정화', '사후 환기 안내'];
+const CASE_PROCESSES = ['현장 점검', '유해물질 저감 관리제', '차폐 공정', '오존 산화', '공기정화', '사후 환기 안내'];
 
 const CASE_SEED = [
   {
@@ -12,7 +12,7 @@ const CASE_SEED = [
     customerRequest: '입주 전 아이 방과 거실 냄새가 걱정되어 전체 공정 상담을 요청했습니다.',
     siteCondition: '도배·마루 마감 직후 붙박이장과 신발장 내부에서 새집 냄새가 강하게 느껴졌습니다.',
     constructionPoint: '수납공간 내부와 생활 동선을 중심으로 오염 발생원을 확인하고 특허 4단계 공정을 적용했습니다.',
-    processes: ['현장 점검', '유해물질 제거제', '차폐 공정', '오존 산화', '공기정화'],
+    processes: ['현장 점검', '유해물질 저감 관리제', '차폐 공정', '오존 산화', '공기정화'],
     body: '입주 전 공간 전체를 확인한 뒤 거실, 아이 방, 붙박이장, 신발장처럼 체감 냄새가 강한 구역을 우선 관리했습니다.\n\n마감재와 새 가구가 만나는 부분은 냄새가 오래 남을 수 있어 차폐 공정과 공기정화 공정을 함께 진행했습니다. 시공 후에는 입주 전 환기 방법과 수납장 개방 관리 방법을 안내했습니다.',
     images: [
       { id: 'seed-hero-1', name: '신축 아파트 거실 점검', dataUrl: 'public/images/bandibuli-indoor-air-hero.png', type: 'image/png' },
@@ -30,7 +30,7 @@ const CASE_SEED = [
     customerRequest: '도배, 마루, 필름 시공 후 남은 냄새 때문에 입주 전 관리를 원했습니다.',
     siteCondition: '마루 접착제와 필름 시공 부위, 새 가구 내부 냄새가 복합적으로 남아 있었습니다.',
     constructionPoint: '냄새가 강한 마감재 주변과 수납공간을 분리 점검하고 공정별로 반복 관리했습니다.',
-    processes: ['현장 점검', '유해물질 제거제', '차폐 공정', '공기정화'],
+    processes: ['현장 점검', '유해물질 저감 관리제', '차폐 공정', '공기정화'],
     body: '올수리 현장은 여러 자재 냄새가 섞여 체감 불편감이 커질 수 있습니다. 현장에서는 냄새가 강한 구역을 먼저 확인하고, 고객이 생활 중 오래 머무는 침실과 거실을 중심으로 관리 범위를 정했습니다.\n\n시공 후에는 마감재 손상 우려가 없는 범위에서 환기와 수납장 개방 관리 방법을 안내했습니다.',
     images: [
       { id: 'seed-reno-1', name: '공정 장비 현장 사진', dataUrl: 'KakaoTalk_20260528_172926361.jpg', type: 'image/jpeg' },
