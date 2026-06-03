@@ -49,18 +49,17 @@
 
 ## 현재 GitHub Pages 테스트 설정
 
-- 아직 `bandibuli-saezip.com` 도메인을 구매하지 않은 상태이므로 GitHub Pages Settings의 **Custom domain은 비워둡니다.**
+- 아직 운영 도메인을 구매하지 않은 상태이므로 GitHub Pages Settings의 **Custom domain은 비워둡니다.**
 - 이 브랜치에서는 `CNAME` 파일을 제거해 GitHub Pages가 미구매 도메인으로 강제 연결되지 않게 했습니다.
-- GitHub Pages 기본 주소는 저장소 소유자에 따라 `https://<GitHub-사용자명>.github.io/banditbully-mapo-homepage/` 형식입니다.
-- 현재 저장소에는 Git remote가 설정되어 있지 않아 코드만으로 실제 `<GitHub-사용자명>` 값을 확인할 수 없습니다.
+- 현재 GitHub Pages 테스트 주소는 `https://kclee0903-dotcom.github.io/banditbully-mapo-homepage/`입니다.
 - 내부 페이지 이동은 `reviews.html`, `review-submit.html`, `admin/login.html`, `admin/reviews.html`처럼 도메인 없는 상대경로를 사용합니다.
 
 ## 도메인 구매 후 운영 전환 체크리스트
 
-도메인을 구매하고 공개할 때 아래 항목을 `https://bandibuli-saezip.com` 기준으로 다시 설정하세요.
+도메인을 구매하고 공개할 때 아래 항목을 구매한 운영 도메인의 절대 URL 기준으로 다시 설정하세요.
 
-- GitHub Pages Settings > Custom domain: `bandibuli-saezip.com`
-- `CNAME`: 파일을 다시 만들고 내용은 `bandibuli-saezip.com`만 입력
+- GitHub Pages Settings > Custom domain: 구매한 운영 도메인
+- `CNAME`: 파일을 다시 만들고 내용은 구매한 운영 도메인만 입력
 - 각 공개 HTML 페이지의 `canonical`: 운영 도메인의 절대 URL로 추가
 - 각 공개 HTML 페이지의 `og:url`: 운영 도메인의 절대 URL로 추가
 - `index.html`의 구조화 데이터 `url`, `logo`, `image`, `@id`: 운영 도메인의 절대 URL로 전환
