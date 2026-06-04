@@ -979,13 +979,22 @@ details strong { color: var(--brand-dark); font-weight: 760; }
   background: #ffffff;
 }
 
+.process .section-heading h1,
 .process .section-heading h2,
 .process .section-heading p {
   color: #ffffff;
 }
 
+.process .section-heading h1,
 .process .section-heading h2 {
   background: linear-gradient(180deg, transparent 60%, rgba(240, 210, 138, 0.42) 60%);
+}
+
+.process .section-heading h1 {
+  margin-bottom: 18px;
+  font-size: clamp(1.58rem, 2.72vw, 2.46rem);
+  line-height: 1.26;
+  letter-spacing: -0.052em;
 }
 
 .service-card__body {
