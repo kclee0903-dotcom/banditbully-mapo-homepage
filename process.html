@@ -226,6 +226,16 @@
       background: #fffdf8;
     }
 
+    .process-page .process-step__image--ratio-wide {
+      aspect-ratio: 3 / 2;
+      min-height: 0;
+    }
+
+    .process-page .process-step__image--ratio-portrait {
+      aspect-ratio: 4 / 5;
+      min-height: 0;
+    }
+
     .process-page .process-step__image-label {
       padding: 18px;
     }
@@ -308,6 +318,11 @@
       .process-page .process-step__image--sub {
         min-height: 220px;
         border-radius: 22px;
+      }
+
+      .process-page .process-step__image--ratio-wide,
+      .process-page .process-step__image--ratio-portrait {
+        min-height: 0;
       }
     }
   </style>
@@ -429,8 +444,8 @@
             <p class="process-step__desc">새가구, 붙박이장, 신발장, 싱크대 내부 마감 상태 확인 및 마감 처리가 안 된 MDF·PB 절단면, 서랍 내부, 선반 분리합니다.</p>
           </div>
           <div class="process-step__media" aria-label="서랍·선반·가구 내부 확인 이미지 영역">
-            <figure class="process-step__image"><span class="process-step__image-label">공정 이미지 1 교체 영역</span></figure>
-            <figure class="process-step__image process-step__image--sub"><span class="process-step__image-label">공정 이미지 2 교체 영역</span></figure>
+            <figure class="process-step__image process-step__image--contain process-step__image--ratio-wide"><img src="images/process-storage-1.jpg" alt="반딧불이 새집증후군 서랍 선반 가구 내부 확인 이미지" loading="lazy" /></figure>
+            <figure class="process-step__image process-step__image--sub process-step__image--contain process-step__image--ratio-portrait"><img src="images/process-storage-2.jpg" alt="반딧불이 새집증후군 MDF PB 절단면 확인 이미지" loading="lazy" /></figure>
           </div>
         </article>
         <article class="process-step reveal-card">
