@@ -44,6 +44,59 @@
       margin: 0 auto;
     }
 
+    .process-page .process-flow-media {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1.28fr);
+      gap: clamp(18px, 3vw, 30px);
+      align-items: center;
+      width: 100%;
+      max-width: var(--content-max);
+      margin: 0 auto clamp(26px, 4vw, 44px);
+    }
+
+    .process-page .process-flow-media__card {
+      display: grid;
+      place-items: center;
+      min-width: 0;
+      padding: clamp(14px, 2vw, 22px);
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 253, 248, 0.95));
+      border: 1px solid rgba(35, 95, 67, 0.14);
+      border-radius: clamp(22px, 3vw, 32px);
+      box-shadow: 0 20px 52px rgba(31, 47, 41, 0.1);
+    }
+
+    .process-page .process-flow-media__card--video {
+      justify-self: end;
+      width: min(100%, 360px);
+    }
+
+    .process-page .process-flow-media__card--summary {
+      align-self: stretch;
+    }
+
+    .process-page .process-flow-media__video {
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      aspect-ratio: 9 / 16;
+      object-fit: contain;
+      background: var(--brand-forest-dark);
+      border-radius: 22px;
+      box-shadow: 0 16px 34px rgba(23, 66, 49, 0.16);
+    }
+
+    .process-page .process-flow-media__image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-height: 520px;
+      object-fit: contain;
+      border-radius: 22px;
+      background: #ffffff;
+    }
+
     .process-page .process-step {
       display: grid;
       grid-template-columns: minmax(0, 0.82fr) minmax(360px, 1.18fr);
@@ -197,6 +250,14 @@
       .process-page .process-step__desc {
         max-width: none;
       }
+
+      .process-page .process-flow-media {
+        grid-template-columns: 1fr;
+      }
+
+      .process-page .process-flow-media__card--video {
+        justify-self: center;
+      }
     }
 
     @media (max-width: 560px) {
@@ -216,6 +277,31 @@
 
       .process-page .process-step__media {
         grid-template-columns: 1fr;
+      }
+
+      .process-page .process-flow-media {
+        gap: 16px;
+        margin-bottom: 26px;
+      }
+
+      .process-page .process-flow-media__card {
+        width: 100%;
+        padding: 12px;
+        border-radius: 22px;
+      }
+
+      .process-page .process-flow-media__card--video {
+        max-width: 330px;
+      }
+
+      .process-page .process-flow-media__video {
+        max-width: 260px;
+        border-radius: 18px;
+      }
+
+      .process-page .process-flow-media__image {
+        max-height: none;
+        border-radius: 18px;
       }
 
       .process-page .process-step__image,
@@ -290,6 +376,17 @@
         <p class="eyebrow">Process flow</p>
         <h2 id="process-flow-title">시공은 이렇게 진행됩니다</h2>
         <p>현장 확인부터 사후 측정과 공식 서비스 안내까지 한눈에 볼 수 있도록 단계별 타임라인으로 정리했습니다.</p>
+      </div>
+
+      <div class="process-flow-media reveal-card-group" aria-label="시공 영상 및 공정 요약 이미지">
+        <figure class="process-flow-media__card process-flow-media__card--video reveal-card">
+          <video class="process-flow-media__video" controls playsinline muted preload="metadata">
+            <source src="process-video.mp4_ shorts.mp4" type="video/mp4" />
+          </video>
+        </figure>
+        <figure class="process-flow-media__card process-flow-media__card--summary reveal-card">
+          <img class="process-flow-media__image" src="process-summary.jpg" alt="반딧불이 새집증후군 특허 4단계 시공 공정 요약 이미지" loading="lazy" />
+        </figure>
       </div>
       <ol class="process-flow reveal-card-group" aria-label="시공 전체 흐름">
         <li><span>01</span><strong>현장 하자 체크</strong></li>
