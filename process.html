@@ -263,6 +263,19 @@
         padding-top: 28px;
       }
 
+      .process-page .process-flow-media {
+        margin-bottom: 28px;
+      }
+
+      .process-page .process-flow-media__card--summary {
+        align-self: auto;
+      }
+
+      .process-page .process-flow-media__image {
+        height: auto;
+        max-height: 460px;
+      }
+
       .process-page .process-step,
       .process-page .process-step--reverse {
         grid-template-columns: 1fr;
@@ -290,7 +303,12 @@
 
     @media (max-width: 560px) {
       .process-page .process-flow-section {
-        padding-bottom: 12px;
+        padding-top: 34px;
+        padding-bottom: 0;
+      }
+
+      .process-page .process-flow-section .section-heading {
+        margin-bottom: 20px;
       }
 
       .process-page .process-detail-section {
@@ -301,48 +319,91 @@
         margin-bottom: 14px;
       }
 
+      .process-page .process-detail-list {
+        gap: 24px;
+      }
+
       .process-page .process-step {
+        gap: 16px;
         padding: 14px;
         border-radius: 24px;
       }
 
       .process-page .process-step__copy {
-        padding: 20px;
+        padding: 18px;
         border-radius: 22px;
+      }
+
+      .process-page .process-step__number {
+        height: 30px;
+        margin-bottom: 10px;
+      }
+
+      .process-page .process-step h3 {
+        margin-bottom: 8px;
+      }
+
+      .process-page .process-step__point {
+        margin-bottom: 10px;
       }
 
       .process-page .process-step__media {
         grid-template-columns: 1fr;
+        gap: 14px;
       }
 
       .process-page .process-flow-media {
-        gap: 16px;
-        margin-bottom: 26px;
+        gap: 20px;
+        margin-bottom: 24px;
       }
 
       .process-page .process-flow-media__card {
         width: 100%;
-        padding: 12px;
+        padding: 10px;
         border-radius: 22px;
       }
 
       .process-page .process-flow-media__card--video {
-        max-width: 330px;
+        max-width: 300px;
       }
 
       .process-page .process-flow-media__video {
-        max-width: 260px;
+        max-width: 220px;
         border-radius: 18px;
       }
 
       .process-page .process-flow-media__image {
-        max-height: none;
+        height: auto;
+        max-height: 360px;
         border-radius: 18px;
+      }
+
+      .process-page .process-flow {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .process-page .process-flow li {
+        min-height: auto;
+        padding: 14px 12px;
+        border-radius: 20px;
+      }
+
+      .process-page .process-flow span {
+        min-width: 34px;
+        height: 34px;
+        margin-bottom: 10px;
+        font-size: 0.82rem;
+      }
+
+      .process-page .process-flow strong {
+        font-size: 0.9rem;
+        line-height: 1.42;
       }
 
       .process-page .process-step__image,
       .process-page .process-step__image--sub {
-        min-height: 220px;
+        min-height: 180px;
         border-radius: 22px;
       }
 
