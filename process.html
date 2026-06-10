@@ -22,8 +22,12 @@
   <link rel="stylesheet" href="style.css" />
 
   <style>
+    .process-page .process-flow-section {
+      padding-bottom: clamp(20px, 3vw, 28px);
+    }
+
     .process-page .process-detail-section {
-      padding-top: clamp(46px, 6vw, 72px);
+      padding-top: clamp(36px, 4vw, 44px);
       padding-bottom: clamp(54px, 7vw, 82px);
       background: linear-gradient(180deg, #ffffff 0%, #fffdf8 50%, #ffffff 100%);
     }
@@ -241,8 +245,12 @@
     }
 
     @media (max-width: 900px) {
+      .process-page .process-flow-section {
+        padding-bottom: 16px;
+      }
+
       .process-page .process-detail-section {
-        padding-top: 40px;
+        padding-top: 28px;
       }
 
       .process-page .process-step,
@@ -271,6 +279,14 @@
     }
 
     @media (max-width: 560px) {
+      .process-page .process-flow-section {
+        padding-bottom: 12px;
+      }
+
+      .process-page .process-detail-section {
+        padding-top: 24px;
+      }
+
       .process-page .process-detail-section .section-heading {
         margin-bottom: 14px;
       }
