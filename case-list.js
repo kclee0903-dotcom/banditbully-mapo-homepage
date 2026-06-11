@@ -81,12 +81,22 @@ const renderVideo = (caseItem) => {
   return `<iframe src="${escapeHtml(embedUrl)}" title="${escapeHtml(caseItem.title)} 영상" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
 };
 
-const renderNotFound = () => {
-  detailSection.innerHTML = '<article class="case-detail"><h2>시공사례를 찾을 수 없습니다</h2><a class="button button--primary" href="cases.html">목록으로 돌아가기</a></article>';
+const findCaseById = (cases, id) => {
+  const normalizedId = String(id || '');
+  if (!normalizedId) return null;
+  return cases.find((caseItem) => String(caseItem.id) === normalizedId) || null;
 };
 
-const renderDetail = async () => {
-  const caseItem = await getCaseById(currentCaseId);
+const renderNotFound = () => {
+  detailSection.innerHTML = `
+    <article class="case-detail">
+      <h2>시공사례를 찾을 수 없습니다.</h2>
+      <a class="button button--primary" href="cases.html">시공사례 목록으로 돌아가기</a>
+    </article>`;
+};
+
+const renderDetail = (cases) => {
+  const caseItem = findCaseById(cases, currentCaseId);
   listWrapper.hidden = true;
   detailSection.hidden = false;
 
@@ -110,7 +120,7 @@ const renderDetail = async () => {
       <div class="case-detail__layout">
         <div class="case-detail__content">
           <section class="case-detail__body" aria-labelledby="case-body-title">
-            <h3 id="case-body-title">본문</h3>
+            <h3 id="case-body-title">본문 글</h3>
             ${renderBody(caseItem)}
           </section>
           ${additionalImages.length ? `
@@ -146,11 +156,11 @@ const renderDetail = async () => {
 
 const initCasePage = async () => {
   renderCategoryOptions();
+  allCases = await getAllCases();
   if (hasCaseIdParam) {
-    await renderDetail();
+    renderDetail(allCases);
     return;
   }
-  allCases = await getAllCases();
   renderList(allCases);
   searchForm.addEventListener('submit', (event) => {
     event.preventDefault();
