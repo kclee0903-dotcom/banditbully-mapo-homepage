@@ -9,7 +9,8 @@ const listWrapper = document.querySelector('.case-list-section');
 let allCases = [];
 
 const params = new URLSearchParams(window.location.search);
-const currentCaseId = params.get('id');
+const hasCaseIdParam = params.has('id');
+const currentCaseId = params.get('id') || '';
 
 const renderCategoryOptions = () => {
   categoryFilter.innerHTML += CASE_CATEGORIES.map((category) => `<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`).join('');
@@ -80,17 +81,22 @@ const renderVideo = (caseItem) => {
   return `<iframe src="${escapeHtml(embedUrl)}" title="${escapeHtml(caseItem.title)} 영상" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
 };
 
+const renderNotFound = () => {
+  detailSection.innerHTML = '<article class="case-detail"><h2>시공사례를 찾을 수 없습니다</h2><a class="button button--primary" href="cases.html">목록으로 돌아가기</a></article>';
+};
+
 const renderDetail = async () => {
   const caseItem = await getCaseById(currentCaseId);
   listWrapper.hidden = true;
   detailSection.hidden = false;
 
   if (!caseItem) {
-    detailSection.innerHTML = '<article class="case-detail"><h2>시공사례를 찾을 수 없습니다</h2><a class="button button--primary" href="cases.html">목록으로 돌아가기</a></article>';
+    renderNotFound();
     return;
   }
 
   const cover = getCoverImage(caseItem);
+  const additionalImages = (caseItem.images || []).filter((image) => image.id !== cover?.id);
   detailSection.innerHTML = `
     <article class="case-detail reveal-card is-visible">
       <div class="case-detail__head">
@@ -103,11 +109,15 @@ const renderDetail = async () => {
       </div>
       <div class="case-detail__layout">
         <div class="case-detail__content">
-          ${renderBody(caseItem)}
-          <section class="case-gallery" aria-labelledby="case-gallery-title">
-            <h3 id="case-gallery-title">이미지 갤러리</h3>
-            <div>${(caseItem.images || []).map((image) => `<img src="${escapeHtml(image.dataUrl)}" alt="${escapeHtml(image.name)}" />`).join('')}</div>
+          <section class="case-detail__body" aria-labelledby="case-body-title">
+            <h3 id="case-body-title">본문</h3>
+            ${renderBody(caseItem)}
           </section>
+          ${additionalImages.length ? `
+          <section class="case-gallery" aria-labelledby="case-gallery-title">
+            <h3 id="case-gallery-title">추가 이미지</h3>
+            <div>${additionalImages.map((image) => `<img src="${escapeHtml(image.dataUrl)}" alt="${escapeHtml(image.name)}" />`).join('')}</div>
+          </section>` : ''}
           <section class="case-video" aria-labelledby="case-video-title">
             <h3 id="case-video-title">동영상</h3>
             ${renderVideo(caseItem)}
@@ -116,6 +126,7 @@ const renderDetail = async () => {
         <aside class="case-detail__info" aria-label="현장 요약 정보">
           <dl>
             <div><dt>현장 유형</dt><dd>${escapeHtml(caseItem.category)}</dd></div>
+            <div><dt>날짜</dt><dd>${formatDate(caseItem.createdAt)}</dd></div>
             <div><dt>고객 요청</dt><dd>${escapeHtml(caseItem.customerRequest)}</dd></div>
             <div><dt>현장 상태</dt><dd>${escapeHtml(caseItem.siteCondition)}</dd></div>
             <div><dt>시공 포인트</dt><dd>${escapeHtml(caseItem.constructionPoint)}</dd></div>
@@ -135,7 +146,7 @@ const renderDetail = async () => {
 
 const initCasePage = async () => {
   renderCategoryOptions();
-  if (currentCaseId) {
+  if (hasCaseIdParam) {
     await renderDetail();
     return;
   }

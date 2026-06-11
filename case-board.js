@@ -90,9 +90,20 @@ const getCaseDuplicateKey = (caseItem) => [
 
 const isSeedCase = (caseItem) => CASE_SEED.some((seed) => seed.id === caseItem?.id);
 
+const getFallbackCaseId = (caseItem) => {
+  const titleKey = String(caseItem?.title || 'case').trim() || 'case';
+  const dateKey = getCaseDateKey(caseItem) || 'undated';
+  return `case-${dateKey}-${encodeURIComponent(titleKey)}`;
+};
+
+const ensureCaseId = (caseItem) => ({
+  ...caseItem,
+  id: String(caseItem?.id || getFallbackCaseId(caseItem))
+});
+
 const dedupeCasesByTitleAndDate = (cases = []) => {
   const deduped = new Map();
-  cases.filter(Boolean).forEach((caseItem) => {
+  cases.filter(Boolean).map(ensureCaseId).forEach((caseItem) => {
     const key = getCaseDuplicateKey(caseItem);
     if (!key || key === '|') return;
 
@@ -150,16 +161,18 @@ const getPublishedCases = async () => {
   return storageMigrationPromise;
 };
 
-const getAllCases = async () => {
+const getCombinedCases = async () => {
   const publishedCases = await getPublishedCases();
-  const cases = publishedCases.length > 0 ? publishedCases : CASE_SEED;
-  return sortCasesByCreatedAt(dedupeCasesByTitleAndDate(cases));
+  return dedupeCasesByTitleAndDate([...CASE_SEED, ...publishedCases]);
 };
 
+const getAllCases = async () => sortCasesByCreatedAt(await getCombinedCases());
+
 const getCaseById = async (id) => {
-  const publishedCases = await getPublishedCases();
-  const cases = publishedCases.length > 0 ? publishedCases : CASE_SEED;
-  return dedupeCasesByTitleAndDate(cases).find((caseItem) => caseItem.id === id) || null;
+  const normalizedId = String(id || '');
+  if (!normalizedId) return null;
+
+  return (await getCombinedCases()).find((caseItem) => String(caseItem.id) === normalizedId) || null;
 };
 
 const saveCase = async (caseItem) => {
