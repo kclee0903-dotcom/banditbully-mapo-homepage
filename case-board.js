@@ -1,34 +1,11 @@
 const CASE_DB_NAME = 'bandibuliConstructionCases';
+const CASE_STORAGE_KEY = CASE_DB_NAME;
 const CASE_DB_VERSION = 1;
 const CASE_STORE_NAME = 'cases';
 const CASE_CATEGORIES = ['신축 아파트', '구축 올수리', '새가구 반입', '인테리어 후 냄새', '아이 있는 집', '대형시설', '기타'];
 const CASE_PROCESSES = ['현장 점검', '유해물질 제거제', '차폐 공정', '오존 산화', '공기정화', '사후 환기 안내'];
 
 const CASE_SEED = [
-  {
-    id: 'fixed-newborn-move-in',
-    title: '신생아 입주 전 반딧불이 새집증후군 시공 사례',
-    category: '인테리어 후 냄새',
-    customerRequest: '신생아와 영유아가 함께 입주 예정이라 새집 냄새와 실내공기질이 걱정되어 꼼꼼한 시공을 요청하셨습니다.',
-    siteCondition: '입주 전 인테리어 마감과 새가구 반입이 함께 진행되어 서랍·선반·가구 내부와 일부 벽지 부위의 현장 상태를 세심하게 확인했습니다.',
-    constructionPoint: '마감 처리가 안 된 수납 내부 차폐와 새가구 내부 정리를 우선 진행하고, 현장 상태에 맞춰 액상 공정·차폐 공정·오존 산화·공기정화 순서로 관리했습니다.',
-    processes: ['현장 점검', '유해물질 제거제', '차폐 공정', '오존 산화', '공기정화', '사후 환기 안내'],
-    body: `신생아와 영유아가 함께 입주 예정인 현장으로, 새집 냄새와 실내공기질에 대한 걱정이 커 입주 전 꼼꼼한 관리를 요청하셨습니다. 현장에서는 가구 내부, 수납공간, 벽지 상태를 먼저 확인한 뒤 아이가 생활할 공간을 중심으로 공정 순서를 잡았습니다.
-
-1. 마감 처리가 안 된 서랍·선반·가구 내부 차폐 공정 진행
-2. 새가구 서랍과 내부 청소 미흡 부분 정리
-3. 벽지 들뜸 우려 부위는 무리한 시공을 피하고 현장 상태에 맞춰 진행
-4. 액상 공정, 차폐 공정, 오존 산화, 공기정화 공정 순서로 관리
-5. 시공 후 환기 방법과 입주 전 관리 방법 안내`,
-    images: [
-      { id: 'seed-newborn-1', name: '신생아 입주 전 실내공기질 관리', dataUrl: 'newborn-indoor-air-qualit..png', type: 'image/png' },
-      { id: 'seed-newborn-2', name: '차폐 공정 현장 사진', dataUrl: '차폐.jpg', type: 'image/jpeg' }
-    ],
-    coverImageId: 'seed-newborn-1',
-    video: { type: 'youtube', url: '' },
-    createdAt: '2026-06-11T09:00:00.000Z',
-    updatedAt: '2026-06-11T09:00:00.000Z'
-  },
   {
     id: 'sample-new-apartment',
     title: '입주 전 신축 아파트 새집증후군 집중 관리',
@@ -79,94 +56,124 @@ const openCaseDb = () => new Promise((resolve, reject) => {
   request.onerror = () => reject(request.error);
 });
 
-const withCaseStore = async (mode, action) => {
-  const db = await openCaseDb();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction(CASE_STORE_NAME, mode);
-    const store = transaction.objectStore(CASE_STORE_NAME);
-    const result = action(store);
-    transaction.oncomplete = () => {
-      db.close();
-      resolve(result);
-    };
-    transaction.onerror = () => {
-      db.close();
-      reject(transaction.error);
-    };
-  });
-};
-
-const requestToPromise = (request) => new Promise((resolve, reject) => {
-  request.onsuccess = () => resolve(request.result);
-  request.onerror = () => reject(request.error);
-});
-
-const getAllCases = async () => {
-  await seedCasesIfEmpty();
-  const db = await openCaseDb();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction(CASE_STORE_NAME, 'readonly');
-    const request = transaction.objectStore(CASE_STORE_NAME).getAll();
-    request.onsuccess = () => {
-      db.close();
-      resolve(request.result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
-    };
-    request.onerror = () => {
-      db.close();
-      reject(request.error);
-    };
-  });
-};
-
-const getCaseById = async (id) => {
-  await seedCasesIfEmpty();
-  const db = await openCaseDb();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction(CASE_STORE_NAME, 'readonly');
-    const request = transaction.objectStore(CASE_STORE_NAME).get(id);
-    request.onsuccess = () => {
-      db.close();
-      resolve(request.result || null);
-    };
-    request.onerror = () => {
-      db.close();
-      reject(request.error);
-    };
-  });
-};
-
-const saveCase = async (caseItem) => withCaseStore('readwrite', (store) => store.put(caseItem));
-const deleteCaseById = async (id) => withCaseStore('readwrite', (store) => store.delete(id));
-
-let seedPromise;
-const seedCasesIfEmpty = async () => {
-  if (seedPromise) return seedPromise;
-  seedPromise = (async () => {
+const getLegacyIndexedDbCases = async () => {
+  if (typeof indexedDB === 'undefined') return [];
+  try {
     const db = await openCaseDb();
-    const count = await new Promise((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       const transaction = db.transaction(CASE_STORE_NAME, 'readonly');
-      const request = transaction.objectStore(CASE_STORE_NAME).count();
-      request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(request.error);
+      const request = transaction.objectStore(CASE_STORE_NAME).getAll();
+      request.onsuccess = () => {
+        db.close();
+        resolve(Array.isArray(request.result) ? request.result : []);
+      };
+      request.onerror = () => {
+        db.close();
+        reject(request.error);
+      };
     });
-    db.close();
+  } catch (error) {
+    console.warn('IndexedDB 시공사례 마이그레이션을 건너뜁니다.', error);
+    return [];
+  }
+};
 
-    if (count === 0) {
-      await withCaseStore('readwrite', (store) => CASE_SEED.forEach((item) => store.put(item)));
+const getCaseDateKey = (caseItem) => {
+  const date = new Date(caseItem?.createdAt || '');
+  return Number.isNaN(date.getTime()) ? '' : date.toISOString().slice(0, 10);
+};
+
+const getCaseDuplicateKey = (caseItem) => [
+  String(caseItem?.title || '').trim().toLowerCase(),
+  getCaseDateKey(caseItem)
+].join('|');
+
+const isSeedCase = (caseItem) => CASE_SEED.some((seed) => seed.id === caseItem?.id);
+
+const dedupeCasesByTitleAndDate = (cases = []) => {
+  const deduped = new Map();
+  cases.filter(Boolean).forEach((caseItem) => {
+    const key = getCaseDuplicateKey(caseItem);
+    if (!key || key === '|') return;
+
+    const existing = deduped.get(key);
+    if (!existing) {
+      deduped.set(key, caseItem);
       return;
     }
 
-    const fixedCases = CASE_SEED.filter((item) => item.id === 'fixed-newborn-move-in');
-    await withCaseStore('readwrite', (store) => {
-      fixedCases.forEach((item) => {
-        const request = store.get(item.id);
-        request.onsuccess = () => {
-          if (!request.result) store.put(item);
-        };
-      });
-    });
-  })();
-  return seedPromise;
+    const existingUpdatedAt = new Date(existing.updatedAt || existing.createdAt || 0).getTime();
+    const itemUpdatedAt = new Date(caseItem.updatedAt || caseItem.createdAt || 0).getTime();
+    if ((isSeedCase(existing) && !isSeedCase(caseItem)) || itemUpdatedAt > existingUpdatedAt) {
+      deduped.set(key, caseItem);
+    }
+  });
+  return Array.from(deduped.values());
+};
+
+const sortCasesByCreatedAt = (cases = []) => [...cases].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+const readLocalStorageCases = () => {
+  if (typeof localStorage === 'undefined') return null;
+  try {
+    const saved = localStorage.getItem(CASE_STORAGE_KEY);
+    if (!saved) return null;
+    const parsed = JSON.parse(saved);
+    return Array.isArray(parsed) ? parsed : null;
+  } catch (error) {
+    console.warn('localStorage 시공사례를 읽지 못했습니다.', error);
+    return null;
+  }
+};
+
+const writeLocalStorageCases = (cases) => {
+  if (typeof localStorage === 'undefined') return;
+  try {
+    localStorage.setItem(CASE_STORAGE_KEY, JSON.stringify(dedupeCasesByTitleAndDate(cases)));
+  } catch (error) {
+    console.warn('localStorage 시공사례를 저장하지 못했습니다.', error);
+  }
+};
+
+let storageMigrationPromise;
+const getPublishedCases = async () => {
+  const localCases = readLocalStorageCases();
+  if (localCases) return dedupeCasesByTitleAndDate(localCases);
+
+  if (!storageMigrationPromise) {
+    storageMigrationPromise = (async () => {
+      const legacyCases = dedupeCasesByTitleAndDate(await getLegacyIndexedDbCases());
+      if (legacyCases.length > 0) writeLocalStorageCases(legacyCases);
+      return legacyCases;
+    })();
+  }
+  return storageMigrationPromise;
+};
+
+const getAllCases = async () => {
+  const publishedCases = await getPublishedCases();
+  const cases = publishedCases.length > 0 ? publishedCases : CASE_SEED;
+  return sortCasesByCreatedAt(dedupeCasesByTitleAndDate(cases));
+};
+
+const getCaseById = async (id) => {
+  const publishedCases = await getPublishedCases();
+  const cases = publishedCases.length > 0 ? publishedCases : CASE_SEED;
+  return dedupeCasesByTitleAndDate(cases).find((caseItem) => caseItem.id === id) || null;
+};
+
+const saveCase = async (caseItem) => {
+  const publishedCases = await getPublishedCases();
+  const nextCases = dedupeCasesByTitleAndDate([
+    ...publishedCases.filter((item) => item.id !== caseItem.id),
+    caseItem
+  ]);
+  writeLocalStorageCases(nextCases);
+};
+
+const deleteCaseById = async (id) => {
+  const publishedCases = await getPublishedCases();
+  writeLocalStorageCases(publishedCases.filter((item) => item.id !== id));
 };
 
 const escapeHtml = (value = '') => String(value)
