@@ -6,6 +6,30 @@ const CASE_PROCESSES = ['현장 점검', '유해물질 제거제', '차폐 공�
 
 const CASE_SEED = [
   {
+    id: 'fixed-newborn-move-in',
+    title: '신생아 입주 전 반딧불이 새집증후군 시공 사례',
+    category: '인테리어 후 냄새',
+    customerRequest: '신생아와 영유아가 함께 입주 예정이라 새집 냄새와 실내공기질이 걱정되어 꼼꼼한 시공을 요청하셨습니다.',
+    siteCondition: '입주 전 인테리어 마감과 새가구 반입이 함께 진행되어 서랍·선반·가구 내부와 일부 벽지 부위의 현장 상태를 세심하게 확인했습니다.',
+    constructionPoint: '마감 처리가 안 된 수납 내부 차폐와 새가구 내부 정리를 우선 진행하고, 현장 상태에 맞춰 액상 공정·차폐 공정·오존 산화·공기정화 순서로 관리했습니다.',
+    processes: ['현장 점검', '유해물질 제거제', '차폐 공정', '오존 산화', '공기정화', '사후 환기 안내'],
+    body: `신생아와 영유아가 함께 입주 예정인 현장으로, 새집 냄새와 실내공기질에 대한 걱정이 커 입주 전 꼼꼼한 관리를 요청하셨습니다. 현장에서는 가구 내부, 수납공간, 벽지 상태를 먼저 확인한 뒤 아이가 생활할 공간을 중심으로 공정 순서를 잡았습니다.
+
+1. 마감 처리가 안 된 서랍·선반·가구 내부 차폐 공정 진행
+2. 새가구 서랍과 내부 청소 미흡 부분 정리
+3. 벽지 들뜸 우려 부위는 무리한 시공을 피하고 현장 상태에 맞춰 진행
+4. 액상 공정, 차폐 공정, 오존 산화, 공기정화 공정 순서로 관리
+5. 시공 후 환기 방법과 입주 전 관리 방법 안내`,
+    images: [
+      { id: 'seed-newborn-1', name: '신생아 입주 전 실내공기질 관리', dataUrl: 'newborn-indoor-air-qualit..png', type: 'image/png' },
+      { id: 'seed-newborn-2', name: '차폐 공정 현장 사진', dataUrl: '차폐.jpg', type: 'image/jpeg' }
+    ],
+    coverImageId: 'seed-newborn-1',
+    video: { type: 'youtube', url: '' },
+    createdAt: '2026-06-11T09:00:00.000Z',
+    updatedAt: '2026-06-11T09:00:00.000Z'
+  },
+  {
     id: 'sample-new-apartment',
     title: '입주 전 신축 아파트 새집증후군 집중 관리',
     category: '신축 아파트',
@@ -126,9 +150,21 @@ const seedCasesIfEmpty = async () => {
       request.onerror = () => reject(request.error);
     });
     db.close();
+
     if (count === 0) {
       await withCaseStore('readwrite', (store) => CASE_SEED.forEach((item) => store.put(item)));
+      return;
     }
+
+    const fixedCases = CASE_SEED.filter((item) => item.id === 'fixed-newborn-move-in');
+    await withCaseStore('readwrite', (store) => {
+      fixedCases.forEach((item) => {
+        const request = store.get(item.id);
+        request.onsuccess = () => {
+          if (!request.result) store.put(item);
+        };
+      });
+    });
   })();
   return seedPromise;
 };
