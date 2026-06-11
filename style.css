@@ -696,6 +696,8 @@ details strong { color: var(--brand-dark); font-weight: 760; }
 .site-footer strong { color: #f8f5e9; }
 .site-footer p { margin: 8px 0 0; color: rgba(255,255,255,0.64); }
 .site-footer a { color: #f8f5e9; font-weight: 740; }
+.site-footer__links { font-size: 0.9rem; }
+.site-footer__links a { color: rgba(248, 245, 233, 0.82); font-weight: 680; }
 
 .mobile-fixed-actions { display: none; }
 
