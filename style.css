@@ -363,6 +363,28 @@ p { color: var(--body); line-height: 1.86; }
 
 .card--warm { background: linear-gradient(180deg, #f7f2e6, #f2f0ea); }
 
+.review-link-card {
+  display: block;
+  height: 100%;
+  color: inherit;
+}
+
+.review-link-card:focus-visible {
+  outline: 3px solid rgba(35, 95, 67, 0.42);
+  outline-offset: 4px;
+}
+
+.review-link-card h3 { color: var(--heading); }
+.review-link-card p:last-child { margin-bottom: 0; }
+
+.reviews__actions {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 26px auto 0;
+}
+
 .expert.premium-brand {
   position: relative;
   display: block;
