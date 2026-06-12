@@ -56,7 +56,58 @@ const filterCases = () => {
   renderList(filtered);
 };
 
+const getImageBlockKey = (block = {}) => String(block.imageId || block.src || block.dataUrl || block.caption || block.alt || '');
+
+const getContentBlockImage = (caseItem, block = {}) => {
+  const images = caseItem.images || [];
+  if (block.imageId) return images.find((image) => image.id === block.imageId) || null;
+  if (block.imageName) return images.find((image) => image.name === block.imageName) || null;
+  if (block.src || block.dataUrl) {
+    return {
+      id: block.id || getImageBlockKey(block),
+      name: block.caption || block.alt || '',
+      dataUrl: block.src || block.dataUrl,
+      type: block.type || 'image'
+    };
+  }
+  return null;
+};
+
+const renderInlineImage = ({ src, alt, caption }) => `
+  <figure class="case-inline-image">
+    <img src="${escapeHtml(src)}" alt="${escapeHtml(alt || caption || '시공사례 이미지')}" loading="lazy" />
+    ${caption ? `<figcaption>${escapeHtml(caption)}</figcaption>` : ''}
+  </figure>`;
+
+const renderContentBlocks = (caseItem) => {
+  if (!Array.isArray(caseItem.contentBlocks) || caseItem.contentBlocks.length === 0) return '';
+
+  return caseItem.contentBlocks.map((block) => {
+    if (block?.type === 'image') {
+      const image = getContentBlockImage(caseItem, block);
+      if (!image?.dataUrl) return '';
+      return renderInlineImage({
+        src: image.dataUrl,
+        alt: block.alt || image.name,
+        caption: block.caption || image.name
+      });
+    }
+
+    if (block?.type === 'text') {
+      return String(block.text || '')
+        .split('\n')
+        .map((line) => line.trim() ? `<p>${escapeHtml(line.trim())}</p>` : '')
+        .join('');
+    }
+
+    return '';
+  }).join('');
+};
+
 const renderBody = (caseItem) => {
+  const blockHtml = renderContentBlocks(caseItem);
+  if (blockHtml) return blockHtml;
+
   const imageMap = new Map((caseItem.images || []).map((image) => [image.name, image]));
   return escapeHtml(caseItem.body)
     .split('\n')
@@ -64,11 +115,22 @@ const renderBody = (caseItem) => {
       const token = line.trim().match(/^\[사진:(.+)]$/);
       if (token && imageMap.has(token[1])) {
         const image = imageMap.get(token[1]);
-        return `<figure class="case-inline-image"><img src="${escapeHtml(image.dataUrl)}" alt="${escapeHtml(image.name)}" /><figcaption>${escapeHtml(image.name)}</figcaption></figure>`;
+        return renderInlineImage({ src: image.dataUrl, alt: image.name, caption: image.name });
       }
       return line ? `<p>${line}</p>` : '';
     })
     .join('');
+};
+
+const getContentBlockImageKeys = (caseItem) => {
+  if (!Array.isArray(caseItem.contentBlocks)) return new Set();
+  return new Set(caseItem.contentBlocks
+    .filter((block) => block?.type === 'image')
+    .map((block) => {
+      const image = getContentBlockImage(caseItem, block);
+      return image?.id || image?.dataUrl || getImageBlockKey(block);
+    })
+    .filter(Boolean));
 };
 
 const renderVideo = (caseItem) => {
@@ -106,7 +168,8 @@ const renderDetail = (cases) => {
   }
 
   const cover = getCoverImage(caseItem);
-  const additionalImages = (caseItem.images || []).filter((image) => image.id !== cover?.id);
+  const contentBlockImageKeys = getContentBlockImageKeys(caseItem);
+  const additionalImages = (caseItem.images || []).filter((image) => image.id !== cover?.id && !contentBlockImageKeys.has(image.id) && !contentBlockImageKeys.has(image.dataUrl));
   detailSection.innerHTML = `
     <article class="case-detail reveal-card is-visible">
       <div class="case-detail__head">
