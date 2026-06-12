@@ -35,24 +35,6 @@ const CASE_SEED = [
 신생아 새집증후군, 아기 있는 집 새집증후군이 걱정되는 공간에서는 새집 냄새 제거, 새가구 냄새와 인테리어 냄새 제거를 단정적으로 약속하기보다 현장 상태를 확인하고 입주 전 실내공기 환경을 꾸준히 관리하는 과정이 중요합니다.
 
 입주 전 새집증후군 시공은 단순히 냄새를 줄이는 작업이 아니라, 가구 내부·마감재·절단면 등 오염원이 남아 있을 수 있는 부분을 확인하고 공간 상태에 맞춰 관리하는 과정이 중요합니다.`,
-    contentBlocks: [
-      { type: 'text', text: '신생아 입주를 앞둔 올수리 아파트 새집증후군 시공 사례입니다. 고객님은 신생아와 영유아가 함께 생활할 공간이라 새집 냄새와 새가구 냄새, 실내공기질에 대한 걱정이 크셨습니다.' },
-      { type: 'image', imageId: 'baby-case-1', alt: '현장 하자 체크와 벽지 들뜸 및 마감 상태 확인', caption: '시공 전 벽지 들뜸, 마감 상태, 가구 상태를 먼저 확인했습니다.' },
-      { type: 'text', text: '현장 확인 결과 일부 벽지 들뜸 우려가 있었고, 붙박이 가구 내부와 선반, 서랍 안쪽에는 마감 처리가 안 된 MDF·PB 절단면이 확인되었습니다. 마감재에 부담이 가지 않도록 현장 상태에 맞춰 시공 범위를 안내했습니다.' },
-      { type: 'image', imageId: 'baby-case-2', alt: '서랍 선반 가구 내부 MDF PB 절단면 확인', caption: '붙박이장, 선반, 서랍 내부처럼 냄새가 올라올 수 있는 부위를 확인했습니다.' },
-      { type: 'text', text: '붙박이장, 선반, 서랍 내부처럼 냄새가 올라올 수 있는 부분은 집중 관리가 필요했습니다. 특히 마감 처리가 안 된 MDF·PB 절단면은 고객님께 사전 설명 후 공정 범위를 정리했습니다.' },
-      { type: 'image', imageId: 'baby-case-3', alt: '시공 전 포름알데히드 라돈 수치 사전 측정', caption: '시공 전 포름알데히드와 라돈 수치를 확인하고 공간 상태에 맞는 순서를 잡았습니다.' },
-      { type: 'text', text: '시공 전 측정과 현장 점검을 바탕으로 벽지, 목재, 마감재, 가구 표면 등 오염원이 배출될 수 있는 부위를 나누어 액상 공정을 진행했습니다.' },
-      { type: 'image', imageId: 'baby-case-4', alt: '벽지 목재 마감재 가구 표면 액상 공정', caption: '마감재 상태를 살피며 포름알데히드와 VOCs 관리 목적의 액상 공정을 진행했습니다.' },
-      { type: 'text', text: '서랍, 선반, MDF·PB 노출 부위에는 차폐제를 꼼꼼하게 시공했습니다. 냄새가 반복적으로 올라올 수 있는 내부 절단면은 시공 누락이 없도록 확인했습니다.' },
-      { type: 'image', imageId: 'baby-case-5', alt: '서랍 선반 MDF PB 노출 부위 차폐 공정', caption: '가구 내부와 절단면에는 차폐 공정을 적용해 오염원 노출을 관리했습니다.' },
-      { type: 'text', text: '이후 오존 산화 공정과 H14 집진 장비를 활용해 실내 공기 상태를 정리했습니다. 공정 후에는 충분한 환기와 입주 전 관리 방법을 함께 안내드렸습니다.' },
-      { type: 'image', imageId: 'baby-case-6', alt: '오존 산화 공정 장비 운영', caption: '현장 상태에 맞춰 오존 산화 공정을 진행했습니다.' },
-      { type: 'image', imageId: 'baby-case-7', alt: 'H14 집진 장비를 활용한 실내 공기정화 공정', caption: 'H14 집진 장비를 활용해 시공 후 실내 공기를 정리했습니다.' },
-      { type: 'text', text: '시공 후에는 환기 방법과 입주 전 관리 포인트를 안내드렸고, 진행 과정은 사진과 함께 공유해드렸습니다.' },
-      { type: 'image', imageId: 'baby-case-8', alt: '시공 후 안내와 입주 전 관리 포인트 공유', caption: '시공 후 고객님께 환기 방법과 입주 전 관리 포인트를 안내했습니다.' },
-      { type: 'text', text: '신생아 새집증후군, 아기 있는 집 새집증후군이 걱정되는 공간에서는 새집 냄새 제거, 새가구 냄새와 인테리어 냄새 제거를 단정적으로 약속하기보다 현장 상태를 확인하고 입주 전 실내공기 환경을 꾸준히 관리하는 과정이 중요합니다. 입주 전 새집증후군 시공은 단순히 냄새를 줄이는 작업이 아니라, 가구 내부·마감재·절단면 등 오염원이 남아 있을 수 있는 부분을 확인하고 공간 상태에 맞춰 관리하는 과정이 중요합니다.' }
-    ],
     images: [
       { id: 'baby-case-1', name: '현장 하자 체크 / 벽지 들뜸, 마감 상태, 가구 상태 확인', dataUrl: 'images/baby-case-1.jpg', type: 'image/jpeg' },
       { id: 'baby-case-2', name: '서랍·선반·가구 내부 확인 / MDF·PB 절단면 확인', dataUrl: 'images/baby-case-2.jpg', type: 'image/jpeg' },
@@ -262,15 +244,21 @@ const escapeHtml = (value = '') => String(value)
   .replaceAll('"', '&quot;')
   .replaceAll("'", '&#039;');
 
-const formatDate = (dateString) => new Intl.DateTimeFormat('ko-KR', {
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit'
-}).format(new Date(dateString));
+const formatDate = (dateString) => {
+  const date = new Date(dateString || '');
+  if (Number.isNaN(date.getTime())) return '날짜 미정';
+  return new Intl.DateTimeFormat('ko-KR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).format(date);
+};
 
 const getCoverImage = (caseItem) => {
-  if (!caseItem?.images?.length) return null;
-  return caseItem.images.find((image) => image.id === caseItem.coverImageId) || caseItem.images[0];
+  const images = (Array.isArray(caseItem?.images) ? caseItem.images : [])
+    .filter((image) => image && typeof image === 'object' && image.dataUrl);
+  if (!images.length) return null;
+  return images.find((image) => image.id === caseItem.coverImageId) || images[0];
 };
 
 const getYoutubeEmbedUrl = (url = '') => {
