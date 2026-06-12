@@ -10,13 +10,14 @@
 - 관리자 로그인 페이지: `/admin/login.html`
 - 관리자 리뷰 관리 페이지: `/admin/reviews.html`
 
-## _generated 시공사례 미리보기
+## 시공사례 정적 HTML 운영 방식
 
-- 이번 PR은 운영 전환이 아니라 `_generated` 경로에 정적 HTML 미리보기를 생성하는 단계입니다.
-- 기존 운영 파일인 `cases.html`, `case-board.js`, `case-list.js`, `case-admin.html`, `case-admin.js`는 교체·삭제·이동하지 않습니다.
-- 미리보기 목록은 `/_generated/cases.html`, 상세페이지는 `/_generated/cases/newborn-sickhouse-care.html`에서 확인합니다.
-- 미리보기 상세 본문은 JavaScript 렌더링 없이 HTML 본문에 직접 작성되어 있으며, 실제 고객정보·실제 측정 수치·결과 단정형 과장 표현을 포함하지 않습니다.
-- 운영 전환 전까지 sitemap/robots 수정, legacy 이동, 운영 `cases.html` 교체, `noindex` 제거는 진행하지 않습니다.
+- 공개 시공사례 목록은 `/cases.html`, 상세페이지는 `/cases/case-001.html` 같은 정적 HTML 파일을 사용합니다.
+- 고객이 보는 상세 본문과 이미지는 HTML에 직접 들어 있으므로 `cases.html?id=...` 방식이나 JavaScript 렌더링, localStorage/IndexedDB 저장소에 의존하지 않습니다.
+- 새 시공사례를 추가할 때는 `cases/case-001.html` 파일을 복사해 `cases/case-002.html`처럼 만든 뒤 제목, 날짜, 이미지, 본문, 현장 요약 정보를 수정하세요.
+- 새 상세페이지를 만든 뒤 `cases.html`의 기존 `<article class="case-card ...">` 카드를 복사해 링크, 대표 이미지, 제목, 요약을 새 파일명에 맞게 수정하세요.
+- 작성/관리 기능이 실패하더라도 공개 목록과 상세페이지가 깨지지 않도록 공개 페이지에서는 `case-board.js`, `case-list.js`, `case-admin.js`를 불러오지 않습니다.
+- `_generated` 폴더와 `scripts/build-cases.js`는 기존 정적 생성 미리보기/개발 보조 자료이며, 현재 공개 운영 링크는 `/cases.html`과 `/cases/*.html`을 기준으로 관리합니다.
 
 ## Supabase 설정 순서
 
