@@ -1859,6 +1859,8 @@ img.process-detail-card__image {
   .case-hero__actions .button,
   .admin-submit-row .button { width: 100%; }
   .case-card__image { min-height: 230px; }
+  .case-detail-section { padding-bottom: 108px; }
+  .case-detail { padding-bottom: 120px; }
   .case-detail,
   .case-admin-form,
   .admin-posts { border-radius: 22px; }
