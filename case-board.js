@@ -224,7 +224,11 @@ const getPublishedCases = async () => {
 };
 
 const getCombinedCases = async () => {
-  const publishedCases = await getPublishedCases();
+  const seedIds = new Set(CASE_SEED.map((caseItem) => String(caseItem.id)));
+  const seedDuplicateKeys = new Set(CASE_SEED.map(getCaseDuplicateKey));
+  const publishedCases = (await getPublishedCases()).filter((caseItem) => (
+    !seedIds.has(String(caseItem?.id)) && !seedDuplicateKeys.has(getCaseDuplicateKey(caseItem))
+  ));
   return dedupeCasesByTitleAndDate([...CASE_SEED, ...publishedCases]);
 };
 
