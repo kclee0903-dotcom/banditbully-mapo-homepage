@@ -13,8 +13,14 @@ const hasCaseIdParam = params.has('id');
 const currentCaseId = params.get('id') || '';
 
 const renderCategoryOptions = () => {
+  if (!categoryFilter) return;
   categoryFilter.innerHTML += CASE_CATEGORIES.map((category) => `<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`).join('');
 };
+
+const getSafeCaseImages = (caseItem) => (Array.isArray(caseItem?.images) ? caseItem.images : [])
+  .filter((image) => image && typeof image === 'object' && image.dataUrl);
+
+const renderFallbackMessage = (message) => `<p class="case-muted">${escapeHtml(message)}</p>`;
 
 const renderCaseCard = (caseItem) => {
   const cover = getCoverImage(caseItem);
@@ -40,6 +46,7 @@ const renderCaseCard = (caseItem) => {
 };
 
 const renderList = (items) => {
+  if (!listSection || !emptyState || !countNode) return;
   listSection.innerHTML = items.map(renderCaseCard).join('');
   emptyState.hidden = items.length > 0;
   countNode.textContent = `총 ${items.length}개의 시공사례가 표시됩니다.`;
@@ -59,7 +66,7 @@ const filterCases = () => {
 const getImageBlockKey = (block = {}) => String(block.imageId || block.src || block.dataUrl || block.caption || block.alt || '');
 
 const getContentBlockImage = (caseItem, block = {}) => {
-  const images = caseItem.images || [];
+  const images = getSafeCaseImages(caseItem);
   if (block.imageId) return images.find((image) => image.id === block.imageId) || null;
   if (block.imageName) return images.find((image) => image.name === block.imageName) || null;
   if (block.src || block.dataUrl) {
@@ -80,7 +87,7 @@ const renderInlineImage = ({ src, alt, caption }) => `
   </figure>`;
 
 const renderContentBlocks = (caseItem) => {
-  if (!Array.isArray(caseItem.contentBlocks) || caseItem.contentBlocks.length === 0) return '';
+  if (!Array.isArray(caseItem?.contentBlocks) || caseItem.contentBlocks.length === 0) return '';
 
   return caseItem.contentBlocks.map((block) => {
     if (block?.type === 'image') {
@@ -101,15 +108,15 @@ const renderContentBlocks = (caseItem) => {
     }
 
     return '';
-  }).join('');
+  }).join('').trim();
 };
 
 const renderBody = (caseItem) => {
   const blockHtml = renderContentBlocks(caseItem);
   if (blockHtml) return blockHtml;
 
-  const imageMap = new Map((caseItem.images || []).map((image) => [image.name, image]));
-  return escapeHtml(caseItem.body)
+  const imageMap = new Map(getSafeCaseImages(caseItem).map((image) => [image.name, image]));
+  const bodyHtml = escapeHtml(caseItem?.body || '')
     .split('\n')
     .map((line) => {
       const token = line.trim().match(/^\[사진:(.+)]$/);
@@ -120,6 +127,8 @@ const renderBody = (caseItem) => {
       return line ? `<p>${line}</p>` : '';
     })
     .join('');
+
+  return bodyHtml.trim() || renderFallbackMessage('등록된 본문이 없습니다.');
 };
 
 const getContentBlockImageKeys = (caseItem) => {
@@ -159,8 +168,8 @@ const renderNotFound = () => {
 
 const renderDetail = (cases) => {
   const caseItem = findCaseById(cases, currentCaseId);
-  listWrapper.hidden = true;
-  detailSection.hidden = false;
+  if (listWrapper) listWrapper.hidden = true;
+  if (detailSection) detailSection.hidden = false;
 
   if (!caseItem) {
     renderNotFound();
@@ -169,7 +178,7 @@ const renderDetail = (cases) => {
 
   const cover = getCoverImage(caseItem);
   const contentBlockImageKeys = getContentBlockImageKeys(caseItem);
-  const additionalImages = (caseItem.images || []).filter((image) => image.id !== cover?.id && !contentBlockImageKeys.has(image.id) && !contentBlockImageKeys.has(image.dataUrl));
+  const additionalImages = getSafeCaseImages(caseItem).filter((image) => image.id !== cover?.id && !contentBlockImageKeys.has(image.id) && !contentBlockImageKeys.has(image.dataUrl));
   detailSection.innerHTML = `
     <article class="case-detail reveal-card is-visible">
       <div class="case-detail__head">
@@ -225,15 +234,19 @@ const initCasePage = async () => {
     return;
   }
   renderList(allCases);
-  searchForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    filterCases();
-  });
-  searchForm.addEventListener('input', filterCases);
-  resetButton.addEventListener('click', () => {
-    searchForm.reset();
-    filterCases();
-  });
+  if (searchForm) {
+    searchForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      filterCases();
+    });
+    searchForm.addEventListener('input', filterCases);
+  }
+  if (resetButton && searchForm) {
+    resetButton.addEventListener('click', () => {
+      searchForm.reset();
+      filterCases();
+    });
+  }
 };
 
 initCasePage().catch((error) => {
