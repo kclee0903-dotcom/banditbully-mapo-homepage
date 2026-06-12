@@ -8,6 +8,12 @@ const resetButton = document.querySelector('[data-reset-search]');
 const listWrapper = document.querySelector('.case-list-section');
 let allCases = [];
 
+const CASE_STATIC_DETAIL_URLS = {
+  'sample-new-apartment': 'cases/case-001.html',
+};
+
+const getCaseDetailHref = (caseItem) => CASE_STATIC_DETAIL_URLS[String(caseItem.id)] || 'cases.html';
+
 const params = new URLSearchParams(window.location.search);
 const hasCaseIdParam = params.has('id');
 const currentCaseId = params.get('id') || '';
@@ -20,7 +26,7 @@ const renderCaseCard = (caseItem) => {
   const cover = getCoverImage(caseItem);
   return `
     <article class="case-card reveal-card is-visible">
-      <a class="case-card__image" href="cases.html?id=${encodeURIComponent(caseItem.id)}" aria-label="${escapeHtml(caseItem.title)} 상세 보기">
+      <a class="case-card__image" href="${getCaseDetailHref(caseItem)}" aria-label="${escapeHtml(caseItem.title)} 상세 보기">
         ${cover ? `<img src="${escapeHtml(cover.dataUrl)}" alt="${escapeHtml(caseItem.title)} 대표 이미지" />` : '<span>대표 이미지 준비 중</span>'}
         <strong>${escapeHtml(caseItem.category)}</strong>
       </a>
@@ -29,12 +35,12 @@ const renderCaseCard = (caseItem) => {
           <span>${escapeHtml(caseItem.category)}</span>
           <time datetime="${escapeHtml(caseItem.createdAt)}">${formatDate(caseItem.createdAt)}</time>
         </div>
-        <h3><a href="cases.html?id=${encodeURIComponent(caseItem.id)}">${escapeHtml(caseItem.title)}</a></h3>
+        <h3><a href="${getCaseDetailHref(caseItem)}">${escapeHtml(caseItem.title)}</a></h3>
         <dl>
           <div><dt>고객 요청</dt><dd>${escapeHtml(caseItem.customerRequest)}</dd></div>
           <div><dt>시공 포인트</dt><dd>${escapeHtml(caseItem.constructionPoint)}</dd></div>
         </dl>
-        <a class="case-card__more" href="cases.html?id=${encodeURIComponent(caseItem.id)}">자세히 보기</a>
+        <a class="case-card__more" href="${getCaseDetailHref(caseItem)}">자세히 보기</a>
       </div>
     </article>`;
 };

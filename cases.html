@@ -4,17 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>시공사례 | 반딧불이 새집증후군</title>
-  <meta name="description" content="반딧불이 새집증후군의 실제 현장 사진, 고객 요청, 시공 포인트를 확인할 수 있는 시공사례 게시판입니다." />
+  <meta name="description" content="반딧불이 새집증후군의 실제 현장 사진, 고객 요청, 시공 포인트를 정적 상세페이지로 확인할 수 있는 시공사례 목록입니다." />
   <meta name="robots" content="noindex, nofollow" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="시공사례 | 반딧불이 새집증후군" />
-  <meta property="og:description" content="반딧불이 새집증후군의 실제 현장 사진, 고객 요청, 시공 포인트를 확인할 수 있는 시공사례 게시판입니다." />
-  <meta property="og:image" content="public/images/bandibuli-indoor-air-hero.png" />
-  <!-- 테스트 단계에서는 canonical/og:url 절대주소를 넣지 않습니다. 도메인 구매 후 운영 도메인의 절대 URL로 추가하세요. -->
+  <meta property="og:description" content="반딧불이 새집증후군의 실제 현장 사진, 고객 요청, 시공 포인트를 정적 상세페이지로 확인할 수 있는 시공사례 목록입니다." />
+  <meta property="og:image" content="newborn-indoor-air-qualit..png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="시공사례 | 반딧불이 새집증후군" />
-  <meta name="twitter:description" content="반딧불이 새집증후군의 실제 현장 사진, 고객 요청, 시공 포인트를 확인할 수 있는 시공사례 게시판입니다." />
-  <meta name="twitter:image" content="public/images/bandibuli-indoor-air-hero.png" />
+  <meta name="twitter:description" content="반딧불이 새집증후군의 실제 현장 사진, 고객 요청, 시공 포인트를 정적 상세페이지로 확인할 수 있는 시공사례 목록입니다." />
+  <meta name="twitter:image" content="newborn-indoor-air-qualit..png" />
   <meta name="theme-color" content="#f7f5ef" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -43,55 +42,53 @@
 
   <main id="top">
     <section class="case-hero section" aria-labelledby="case-hero-title">
-      <div class="case-hero__copy reveal">
+      <div class="case-hero__copy reveal is-visible">
         <p class="eyebrow">Field portfolio</p>
         <h1 id="case-hero-title">현장 사진으로 확인하는 반딧불이 시공사례</h1>
-        <p>신축 아파트, 구축 올수리, 새가구 반입, 대형시설까지 실제 현장 상태와 시공 포인트를 사진 중심으로 정리했습니다.</p>
+        <p>신축 아파트, 구축 올수리, 새가구 반입, 대형시설까지 현장 상태와 시공 포인트를 사진 중심의 정적 상세페이지로 정리했습니다.</p>
         <div class="case-hero__actions">
-          <a class="button button--primary" href="case-admin.html">관리자 글쓰기</a>
+          <a class="button button--primary" href="https://open.kakao.com/o/scaooume" target="_blank" rel="noopener noreferrer">상담 문의하기</a>
           <a class="button button--secondary" href="tel:01099213632">전화 상담</a>
         </div>
       </div>
-      <div class="case-hero__panel reveal-card" aria-label="시공사례 운영 안내">
-        <strong>관리자 게시판 방식</strong>
-        <p>관리자 화면에서 제목, 본문, 사진, 영상, 대표 이미지, 현장 정보를 입력하면 이 페이지에 자동으로 카드와 상세 페이지가 생성됩니다.</p>
+      <div class="case-hero__panel reveal-card is-visible" aria-label="시공사례 안내">
+        <strong>정적 HTML 상세페이지</strong>
+        <p>고객 공개용 시공사례는 JavaScript나 브라우저 저장소 없이도 제목, 본문, 이미지가 바로 보이도록 개별 HTML 파일로 제공합니다.</p>
       </div>
     </section>
 
     <section class="section case-list-section" id="case-list" aria-labelledby="case-list-title">
-      <div class="case-list-header reveal">
+      <div class="case-list-header reveal is-visible">
         <div>
           <p class="eyebrow">Construction cases</p>
           <h2 id="case-list-title">시공사례 목록</h2>
-          <p>제목, 현장 유형, 고객 요청, 시공 포인트로 원하는 사례를 검색하세요.</p>
+          <p>카드를 선택하면 정적 상세페이지로 이동합니다. 새 사례는 <code>cases/case-001.html</code>을 복사해 추가할 수 있습니다.</p>
         </div>
-        <a class="case-admin-link" href="case-admin.html">+ 시공사례 작성</a>
       </div>
 
-      <form class="case-search reveal-card" data-case-search aria-label="시공사례 검색">
-        <label>
-          <span>검색어</span>
-          <input type="search" name="query" placeholder="예: 신축, 아이 방, 인테리어 냄새" />
-        </label>
-        <label>
-          <span>현장 유형</span>
-          <select name="category" data-category-filter>
-            <option value="">전체</option>
-          </select>
-        </label>
-        <button class="button button--primary" type="submit">검색</button>
-        <button class="button button--secondary" type="button" data-reset-search>초기화</button>
-      </form>
-
-      <div class="case-result-count" data-case-count aria-live="polite"></div>
-      <div class="case-grid" data-case-list></div>
-      <article class="case-empty" data-case-empty hidden>
-        <h3>검색 결과가 없습니다</h3>
-        <p>다른 검색어를 입력하거나 현장 유형을 전체로 변경해보세요.</p>
-      </article>
+      <div class="case-result-count" aria-live="polite">총 1개의 시공사례가 표시됩니다.</div>
+      <div class="case-grid">
+        <!-- 새 시공사례 추가 시: cases/case-001.html을 복사해 cases/case-002.html처럼 만든 뒤 아래 article을 복사해 링크와 내용을 수정하세요. -->
+        <article class="case-card reveal-card is-visible">
+          <a class="case-card__image" href="cases/case-001.html" aria-label="신생아 가정 입주 전 새집증후군 관리 상세 보기">
+            <img src="newborn-indoor-air-qualit..png" alt="신생아 가정 입주 전 실내환경 관리 대표 이미지" loading="lazy" />
+            <strong>아이 있는 집</strong>
+          </a>
+          <div class="case-card__body">
+            <div class="case-card__meta">
+              <span>신축 입주 전 가정</span>
+              <time datetime="2026-06-12">2026. 06. 12.</time>
+            </div>
+            <h3><a href="cases/case-001.html">신생아 가정 입주 전 새집증후군 관리</a></h3>
+            <dl>
+              <div><dt>요약</dt><dd>신생아가 생활할 공간을 가정해 입주 전 오염원 관리와 실내환경 관리 흐름을 정리한 정적 HTML 예시입니다.</dd></div>
+              <div><dt>시공 포인트</dt><dd>수납공간, 아이 방, 거실 등 냄새가 머물기 쉬운 구역을 중심으로 관리합니다.</dd></div>
+            </dl>
+            <a class="case-card__more" href="cases/case-001.html">자세히 보기</a>
+          </div>
+        </article>
+      </div>
     </section>
-
-    <section class="section case-detail-section" data-case-detail hidden></section>
   </main>
 
   <button class="top-button" type="button" data-top-button aria-label="맨 위로 이동" aria-hidden="true">↑</button>
@@ -99,9 +96,5 @@
     <a href="https://open.kakao.com/o/scaooume" target="_blank" rel="noopener noreferrer">카카오톡 상담</a>
     <a href="tel:01099213632">전화 상담</a>
   </div>
-
-  <script src="case-board.js"></script>
-  <script src="case-list.js"></script>
-  <script src="script.js"></script>
 </body>
 </html>

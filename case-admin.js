@@ -94,7 +94,7 @@ const renderPosts = async () => {
         <span>${escapeHtml(post.category)} · ${formatDate(post.createdAt)}</span>
       </div>
       <div>
-        <a class="button button--ghost" href="cases.html?id=${encodeURIComponent(post.id)}">보기</a>
+        <a class="button button--ghost" href="cases.html">보기</a>
         <button class="button button--secondary" type="button" data-edit-post="${escapeHtml(post.id)}">수정</button>
         <button class="button button--secondary" type="button" data-delete-post="${escapeHtml(post.id)}">삭제</button>
       </div>
