@@ -2,10 +2,54 @@ const CASE_DB_NAME = 'bandibuliConstructionCases';
 const CASE_STORAGE_KEY = CASE_DB_NAME;
 const CASE_DB_VERSION = 1;
 const CASE_STORE_NAME = 'cases';
-const CASE_CATEGORIES = ['신축 아파트', '구축 올수리', '새가구 반입', '인테리어 후 냄새', '아이 있는 집', '대형시설', '기타'];
+const CASE_CATEGORIES = ['신축 아파트', '구축 올수리', '아이 있는 집 / 올수리 아파트', '새가구 반입', '인테리어 후 냄새', '아이 있는 집', '대형시설', '기타'];
 const CASE_PROCESSES = ['현장 점검', '유해물질 제거제', '차폐 공정', '오존 산화', '공기정화', '사후 환기 안내'];
 
 const CASE_SEED = [
+  {
+    id: 'newborn-renovation-apartment',
+    title: '신생아 입주를 앞둔 올수리 아파트 새집증후군 시공 사례',
+    category: '아이 있는 집 / 올수리 아파트',
+    customerRequest: '신생아와 영유아가 함께 생활할 공간이라 새집 냄새, 새가구 냄새, 실내공기질 걱정이 컸던 올수리 아파트 시공 사례입니다.',
+    siteCondition: '일부 벽지 들뜸 우려가 있었고 붙박이 가구 내부와 선반, 서랍 안쪽에 마감 처리가 안 된 MDF·PB 절단면이 확인되었습니다.',
+    constructionPoint: '민감한 가족을 위해 입주 전 새집증후군 관리 범위를 점검하고 액상 공정, 차폐 공정, 오존 산화, H14 집진 장비 공기정화를 순서대로 진행했습니다.',
+    processes: ['현장 점검', '유해물질 제거제', '차폐 공정', '오존 산화', '공기정화', '사후 환기 안내'],
+    body: `신생아 입주를 앞둔 올수리 아파트 새집증후군 시공 사례입니다.
+
+고객님은 신생아와 영유아가 함께 생활할 공간이라 새집 냄새와 새가구 냄새, 실내공기질에 대한 걱정이 크셨습니다. 현장 확인 결과 일부 벽지 들뜸 우려가 있었고, 붙박이 가구 내부와 선반, 서랍 안쪽에는 마감 처리가 안 된 MDF·PB 절단면이 확인되었습니다.
+
+시공 전에는 벽지 들뜸, 마감 상태, 가구 상태 등을 먼저 확인했습니다. 마감재에 부담이 가지 않도록 현장 상태에 맞춰 시공 범위를 안내했습니다.
+
+붙박이장, 선반, 서랍 내부처럼 냄새가 올라올 수 있는 부분도 확인했습니다. 마감 처리가 안 된 MDF·PB 절단면은 집중 관리가 필요한 부위였습니다.
+
+시공 전 포름알데히드와 라돈 수치를 확인하고, 공간 상태에 맞는 공정 순서를 정리했습니다.
+
+벽지, 목재, 마감재, 가구 표면 등 오염원이 배출될 수 있는 부위에는 액상 공정을 진행했습니다. 포름알데히드 VOCs 실내공기 관리 관점에서 마감재 상태를 함께 살폈습니다.
+
+서랍, 선반, MDF·PB 노출 부위에는 차폐제를 꼼꼼하게 시공했습니다.
+
+이후 오존 산화 공정과 H14 집진 장비를 활용해 실내 공기 상태를 정리했습니다.
+
+시공 후에는 환기 방법과 입주 전 관리 포인트를 안내드렸고, 진행 과정은 사진과 함께 공유해드렸습니다.
+
+신생아 새집증후군, 아기 있는 집 새집증후군이 걱정되는 공간에서는 새집 냄새 제거, 새가구 냄새와 인테리어 냄새 제거를 단정적으로 약속하기보다 현장 상태를 확인하고 입주 전 실내공기 환경을 꾸준히 관리하는 과정이 중요합니다.
+
+입주 전 새집증후군 시공은 단순히 냄새를 줄이는 작업이 아니라, 가구 내부·마감재·절단면 등 오염원이 남아 있을 수 있는 부분을 확인하고 공간 상태에 맞춰 관리하는 과정이 중요합니다.`,
+    images: [
+      { id: 'baby-case-1', name: '현장 하자 체크 / 벽지 들뜸, 마감 상태, 가구 상태 확인', dataUrl: 'images/baby-case-1.jpg', type: 'image/jpeg' },
+      { id: 'baby-case-2', name: '서랍·선반·가구 내부 확인 / MDF·PB 절단면 확인', dataUrl: 'images/baby-case-2.jpg', type: 'image/jpeg' },
+      { id: 'baby-case-3', name: '사전 측정 / 포름알데히드와 라돈 수치 확인', dataUrl: 'images/baby-case-3.jpg', type: 'image/jpeg' },
+      { id: 'baby-case-4', name: '액상 공정', dataUrl: 'images/baby-case-4.jpg', type: 'image/jpeg' },
+      { id: 'baby-case-5', name: '차폐 공정', dataUrl: 'images/baby-case-5.jpg', type: 'image/jpeg' },
+      { id: 'baby-case-6', name: '오존 공정', dataUrl: 'images/baby-case-6.jpg', type: 'image/jpeg' },
+      { id: 'baby-case-7', name: 'H14 집진 장비 공기정화 공정', dataUrl: 'images/baby-case-7.jpg', type: 'image/jpeg' },
+      { id: 'baby-case-8', name: '시공 후 안내 및 입주 전 관리 포인트', dataUrl: 'images/baby-case-8.jpg', type: 'image/jpeg' }
+    ],
+    coverImageId: 'baby-case-1',
+    video: { type: 'youtube', url: '' },
+    createdAt: '2026-06-12T09:00:00.000Z',
+    updatedAt: '2026-06-12T09:00:00.000Z'
+  },
   {
     id: 'sample-new-apartment',
     title: '입주 전 신축 아파트 새집증후군 집중 관리',
