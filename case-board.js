@@ -262,7 +262,7 @@ const getCoverImage = (caseItem) => {
 };
 
 const getYoutubeEmbedUrl = (url = '') => {
-  const trimmed = url.trim();
+  const trimmed = String(url || '').trim();
   if (!trimmed) return '';
   const patterns = [
     /youtu\.be\/([\w-]{6,})/,
