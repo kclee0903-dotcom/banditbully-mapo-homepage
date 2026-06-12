@@ -1694,6 +1694,15 @@ img.process-detail-card__image {
 .case-inline-image img { aspect-ratio: 16 / 10; }
 .case-inline-image figcaption { padding: 12px 16px; color: var(--muted); font-size: 0.92rem; }
 
+.case-inline-image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.case-inline-image-grid .case-inline-image { margin: 0; }
+
 .case-gallery,
 .case-video { margin-top: 34px; }
 .case-gallery h3,
@@ -1831,7 +1840,8 @@ img.process-detail-card__image {
   .case-search,
   .case-grid,
   .admin-grid-two,
-  .case-gallery > div { grid-template-columns: 1fr; }
+  .case-gallery > div,
+  .case-inline-image-grid { grid-template-columns: 1fr; }
   .case-search .button,
   .case-hero__actions .button,
   .admin-submit-row .button { width: 100%; }
