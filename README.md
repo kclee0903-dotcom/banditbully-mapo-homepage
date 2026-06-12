@@ -10,6 +10,14 @@
 - 관리자 로그인 페이지: `/admin/login.html`
 - 관리자 리뷰 관리 페이지: `/admin/reviews.html`
 
+## _generated 시공사례 미리보기
+
+- 이번 PR은 운영 전환이 아니라 `_generated` 경로에 정적 HTML 미리보기를 생성하는 단계입니다.
+- 기존 운영 파일인 `cases.html`, `case-board.js`, `case-list.js`, `case-admin.html`, `case-admin.js`는 교체·삭제·이동하지 않습니다.
+- 미리보기 목록은 `/_generated/cases.html`, 상세페이지는 `/_generated/cases/newborn-sickhouse-care.html`에서 확인합니다.
+- 미리보기 상세 본문은 JavaScript 렌더링 없이 HTML 본문에 직접 작성되어 있으며, 실제 고객정보·실제 측정 수치·결과 단정형 과장 표현을 포함하지 않습니다.
+- 운영 전환 전까지 sitemap/robots 수정, legacy 이동, 운영 `cases.html` 교체, `noindex` 제거는 진행하지 않습니다.
+
 ## Supabase 설정 순서
 
 1. Supabase 프로젝트를 생성합니다.
