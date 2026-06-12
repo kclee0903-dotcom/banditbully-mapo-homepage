@@ -6,6 +6,7 @@ const countNode = document.querySelector('[data-case-count]');
 const categoryFilter = document.querySelector('[data-category-filter]');
 const resetButton = document.querySelector('[data-reset-search]');
 const listWrapper = document.querySelector('.case-list-section');
+const caseHero = document.querySelector('.case-hero');
 let allCases = [];
 
 const params = new URLSearchParams(window.location.search);
@@ -158,6 +159,21 @@ const findCaseById = (cases, id) => {
   return cases.find((caseItem) => String(caseItem.id) === normalizedId) || null;
 };
 
+const revealDetailSection = () => {
+  if (caseHero) caseHero.hidden = true;
+  if (listWrapper) listWrapper.hidden = true;
+  if (detailSection) detailSection.hidden = false;
+};
+
+const scrollToDetailSection = () => {
+  if (detailSection) {
+    detailSection.scrollIntoView({ behavior: 'auto', block: 'start' });
+    return;
+  }
+
+  window.scrollTo(0, 0);
+};
+
 const renderNotFound = () => {
   detailSection.innerHTML = `
     <article class="case-detail">
@@ -168,11 +184,11 @@ const renderNotFound = () => {
 
 const renderDetail = (cases) => {
   const caseItem = findCaseById(cases, currentCaseId);
-  if (listWrapper) listWrapper.hidden = true;
-  if (detailSection) detailSection.hidden = false;
+  revealDetailSection();
 
   if (!caseItem) {
     renderNotFound();
+    scrollToDetailSection();
     return;
   }
 
@@ -224,6 +240,7 @@ const renderDetail = (cases) => {
         </aside>
       </div>
     </article>`;
+  scrollToDetailSection();
 };
 
 const initCasePage = async () => {
