@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <base href="../../" />
+  <title>{{metaTitle}}</title>
+  <meta name="description" content="{{metaDescription}}" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="{{metaTitle}}" />
+  <meta property="og:description" content="{{metaDescription}}" />
+  <meta property="og:image" content="{{coverImage}}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#f7f5ef" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="case-board-page">
+  {{siteHeader}}
+
+  <main id="top">
+    <section class="section case-detail-section">
+      <article class="case-detail reveal-card is-visible">
+        <div class="case-detail__head">
+          <p class="eyebrow">Generated preview · {{category}}</p>
+          <h1>{{title}}</h1>
+          <time datetime="{{date}}">작성일 {{displayDate}}</time>
+          <p>{{summary}}</p>
+        </div>
+
+        <div class="case-detail__cover">
+          <img src="{{coverImage}}" alt="{{coverAlt}}" />
+        </div>
+
+        <div class="case-detail__layout">
+          <div class="case-detail__content">
+            <section class="case-detail__body" aria-labelledby="case-body-title">
+              <h2 id="case-body-title">본문</h2>
+{{bodyHtml}}
+            </section>
+{{galleryHtml}}
+{{relatedHtml}}
+          </div>
+
+          <aside class="case-detail__info" aria-label="현장 요약 정보">
+            <dl>
+              <div><dt>현장 유형</dt><dd>{{siteType}}</dd></div>
+              <div><dt>카테고리</dt><dd>{{category}}</dd></div>
+              <div><dt>날짜</dt><dd>{{displayDate}}</dd></div>
+{{sidebarHtml}}
+            </dl>
+            <div class="case-consult-box">
+              <strong>{{ctaText}}</strong>
+              <a class="button button--secondary" href="tel:01099213632">전화 상담</a>
+              <a class="button button--primary" href="https://open.kakao.com/o/scaooume" target="_blank" rel="noopener noreferrer">카카오 상담</a>
+              <a class="button button--secondary" href="_generated/cases.html">목록으로 돌아가기</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  {{siteFooter}}
+</body>
+</html>
