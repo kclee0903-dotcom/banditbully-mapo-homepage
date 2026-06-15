@@ -163,12 +163,16 @@ a { color: inherit; text-decoration: none; }
   line-height: 0;
 }
 
+.hero__picture,
 .hero__banner {
   display: block;
   width: 100%;
   max-width: none;
-  height: auto;
   margin: 0;
+}
+
+.hero__banner {
+  height: auto;
 }
 
 .intro, .cases { background: var(--white); }
