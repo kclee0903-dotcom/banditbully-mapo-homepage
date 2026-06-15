@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- 공개 전 테스트 기간에는 sitemap URL을 비워두고 검색엔진에 제출하지 않습니다. -->
+  <!-- 도메인 확정 후 https://bandibuli-saejip.com 부분을 실제 운영 도메인으로 교체하세요. -->
+  <url>
+    <loc>https://bandibuli-saejip.com/</loc>
+  </url>
+  <url>
+    <loc>https://bandibuli-saejip.com/process.html</loc>
+  </url>
+  <url>
+    <loc>https://bandibuli-saejip.com/cases.html</loc>
+  </url>
+  <url>
+    <loc>https://bandibuli-saejip.com/cases/case-001.html</loc>
+  </url>
+  <url>
+    <loc>https://bandibuli-saejip.com/cases/case-002.html</loc>
+  </url>
 </urlset>
