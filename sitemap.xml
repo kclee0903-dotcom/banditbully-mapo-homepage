@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- 도메인 확정 후 https://bandibuli-saejip.com 부분을 실제 운영 도메인으로 교체하세요. -->
   <url>
     <loc>https://bandibuli-saejip.com/</loc>
   </url>
@@ -15,5 +14,14 @@
   </url>
   <url>
     <loc>https://bandibuli-saejip.com/cases/case-002.html</loc>
+  </url>
+  <url>
+    <loc>https://bandibuli-saejip.com/reviews.html</loc>
+  </url>
+  <url>
+    <loc>https://bandibuli-saejip.com/review-submit.html</loc>
+  </url>
+  <url>
+    <loc>https://bandibuli-saejip.com/review-confirm.html</loc>
   </url>
 </urlset>
