@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="반딧불이 새집증후군 파비콘">
+  <rect width="64" height="64" rx="16" fill="#1f2f1f"/>
+  <circle cx="32" cy="22" r="10" fill="#f6d65b"/>
+  <path fill="#f6d65b" d="M18 35c0-7.7 6.3-14 14-14s14 6.3 14 14v8c0 7.7-6.3 14-14 14s-14-6.3-14-14z"/>
+  <path fill="#fff3a6" d="M24 42c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8-8-3.6-8-8z"/>
+  <path fill="none" stroke="#fff3a6" stroke-linecap="round" stroke-width="4" d="M22 15 16 9M42 15l6-6"/>
+</svg>
