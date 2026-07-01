@@ -51,6 +51,23 @@
       line-height: 1.78;
     }
 
+    .gonggu-page .gonggu-hero__image {
+      margin-top: clamp(30px, 5vw, 52px);
+      overflow: hidden;
+      border: 1px solid rgba(35, 95, 67, 0.14);
+      border-radius: clamp(24px, 4vw, 38px);
+      box-shadow: 0 24px 64px rgba(31, 47, 41, 0.13);
+      line-height: 0;
+    }
+
+    .gonggu-page .gonggu-hero__image img,
+    .gonggu-page .gonggu-process-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
     .gonggu-page .gonggu-actions {
       display: flex;
       flex-wrap: wrap;
@@ -72,6 +89,50 @@
       border: 1px solid rgba(35, 95, 67, 0.12);
       border-radius: clamp(22px, 3vw, 34px);
       box-shadow: 0 20px 54px rgba(31, 47, 41, 0.08);
+    }
+
+    .gonggu-page .gonggu-process-grid {
+      display: grid;
+      gap: 20px;
+      margin-top: 24px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .gonggu-page .gonggu-process-item {
+      overflow: hidden;
+      background: #fffdf8;
+      border: 1px solid rgba(35, 95, 67, 0.12);
+      border-radius: 24px;
+      box-shadow: 0 14px 34px rgba(31, 47, 41, 0.07);
+    }
+
+    .gonggu-page .gonggu-process-image {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: rgba(237, 245, 238, 0.72);
+      line-height: 0;
+    }
+
+    .gonggu-page .gonggu-process-image img {
+      height: 100%;
+    }
+
+    .gonggu-page .gonggu-process-copy {
+      padding: 18px 20px 20px;
+    }
+
+    .gonggu-page .gonggu-process-copy h3 {
+      margin: 0 0 8px;
+      color: var(--heading);
+      font-size: 1.12rem;
+      line-height: 1.36;
+      letter-spacing: -0.04em;
+    }
+
+    .gonggu-page .gonggu-process-copy p {
+      margin: 0;
+      font-size: 0.97rem;
+      line-height: 1.72;
     }
 
     .gonggu-page .gonggu-card h2 {
@@ -130,6 +191,12 @@
       font-weight: 760;
       line-height: 1.7;
     }
+
+    @media (max-width: 760px) {
+      .gonggu-page .gonggu-process-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body class="gonggu-page">
@@ -162,6 +229,9 @@
           <a class="button button--primary" href="https://open.kakao.com/o/scaooume" target="_blank" rel="noopener noreferrer">카카오톡으로 예약 상담</a>
           <a class="button button--secondary" href="tel:01099213632">전화 상담</a>
         </div>
+        <figure class="gonggu-hero__image">
+          <img src="images/hillstate-mapo-the-first-gonggu.jpg" alt="힐스테이트 마포더퍼스트 전경" loading="eager" onerror="this.closest('figure').remove()" />
+        </figure>
       </div>
     </section>
 
@@ -198,6 +268,44 @@
             <li>오존 산화 공정은 현장 조건과 안전 수칙을 확인한 뒤 필요한 범위에서 진행합니다.</li>
             <li>HEPA·카본·프리 필터 공기정화와 에어건 시공으로 실내 공기 흐름과 미세먼지 관리를 병행합니다.</li>
           </ul>
+          <div class="gonggu-process-grid" aria-label="반딧불이 특허 공정 이미지">
+            <section class="gonggu-process-item">
+              <div class="gonggu-process-image">
+                <img src="images/ecodue-spray-process.jpg" alt="에코듀 액상 분해 시공" loading="lazy" onerror="this.closest('.gonggu-process-item').remove()" />
+              </div>
+              <div class="gonggu-process-copy">
+                <h3>에코듀 액상 분해 공정</h3>
+                <p>공간과 자재 상태에 맞춰 새집 냄새 원인 물질 저감을 돕는 액상 분해 공정을 진행합니다.</p>
+              </div>
+            </section>
+            <section class="gonggu-process-item">
+              <div class="gonggu-process-image">
+                <img src="images/mdf-pb-shield-coating.jpg" alt="MDF PB 절단면 차폐" loading="lazy" onerror="this.closest('.gonggu-process-item').remove()" />
+              </div>
+              <div class="gonggu-process-copy">
+                <h3>MDF·PB 절단면 차폐 공정</h3>
+                <p>붙박이장, 선반, 싱크대, 새가구 단면처럼 방출 관리가 필요한 부위를 중심으로 관리합니다.</p>
+              </div>
+            </section>
+            <section class="gonggu-process-item">
+              <div class="gonggu-process-image">
+                <img src="images/ozone-oxidation-process.jpg" alt="오존 산화 공정" loading="lazy" onerror="this.closest('.gonggu-process-item').remove()" />
+              </div>
+              <div class="gonggu-process-copy">
+                <h3>오존 산화 공정</h3>
+                <p>현장 조건과 안전 수칙을 확인한 뒤 필요한 범위에서 산화 공정을 적용합니다.</p>
+              </div>
+            </section>
+            <section class="gonggu-process-item">
+              <div class="gonggu-process-image">
+                <img src="images/hepa-carbon-prefilter-air-cleaning.jpg" alt="HEPA 카본 필터 공기정화" loading="lazy" onerror="this.closest('.gonggu-process-item').remove()" />
+              </div>
+              <div class="gonggu-process-copy">
+                <h3>HEPA·카본·프리필터 공기정화</h3>
+                <p>공기정화와 에어건 시공을 병행해 실내 공기 흐름과 미세먼지 관리를 돕습니다.</p>
+              </div>
+            </section>
+          </div>
         </article>
       </div>
     </section>
