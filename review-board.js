@@ -66,7 +66,10 @@ const fetchApprovedReviews = async () => {
     .order('display_date', { ascending: false })
     .order('created_at', { ascending: false });
   if (error) throw error;
-  return data?.length ? data : REVIEW_SAMPLE_DATA;
+  const approvedReviews = data || [];
+  const existingIds = new Set(approvedReviews.map((review) => review.id));
+  const existingReviews = REVIEW_SAMPLE_DATA.filter((review) => !existingIds.has(review.id));
+  return [...approvedReviews, ...existingReviews];
 };
 
 const renderReviewCard = (review) => `
