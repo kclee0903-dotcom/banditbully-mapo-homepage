@@ -70,7 +70,7 @@ const fetchApprovedReviews = async () => {
 };
 
 const renderReviewCard = (review) => `
-  <article class="review-card reveal-card">
+  <article class="review-card">
     ${review.image_url ? `
       <figure class="review-card__image">
         <img src="${escapeReviewHtml(review.image_url)}" alt="${escapeReviewHtml(`${review.nickname} 후기 이미지`)}" loading="lazy" />
