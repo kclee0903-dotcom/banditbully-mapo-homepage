@@ -23,6 +23,16 @@ const createConfirmToken = () => {
   return Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
 };
 
+const createReviewId = () => {
+  if (crypto.randomUUID) return crypto.randomUUID();
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+};
+
 const validateReviewImage = (file) => {
   if (!file) return null;
   const rule = REVIEW_ALLOWED_TYPES.get(file.type);
@@ -119,9 +129,11 @@ const initSubmit = () => {
     try {
       const client = getClient();
       const formData = new FormData(form);
+      const reviewId = createReviewId();
       const token = createConfirmToken();
       const imageUrl = await uploadReviewImage(client, file, token);
       const payload = {
+        id: reviewId,
         nickname: String(formData.get('nickname')).trim(),
         site_type: String(formData.get('site_type')).trim(),
         rating: Number(formData.get('rating')),
@@ -131,10 +143,10 @@ const initSubmit = () => {
         confirm_token: token,
         consent_agreed: true
       };
-      const { data, error } = await client.from('reviews').insert(payload).select('id,confirm_token').single();
+      const { error } = await client.from('reviews').insert(payload);
       if (error) throw error;
       localStorage.setItem(REVIEW_COOLDOWN_KEY, String(Date.now()));
-      window.location.href = `review-confirm.html?id=${encodeURIComponent(data.id)}&token=${encodeURIComponent(data.confirm_token)}`;
+      window.location.href = `review-confirm.html?id=${encodeURIComponent(reviewId)}&token=${encodeURIComponent(token)}`;
     } catch (error) {
       console.error(error);
       setError(error.message || '후기 접수 중 오류가 발생했습니다.');
