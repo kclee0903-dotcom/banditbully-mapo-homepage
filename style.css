@@ -1856,6 +1856,14 @@ img.process-detail-card__image {
 .admin-post-item span { color: var(--muted); font-size: 0.9rem; }
 .admin-post-item > div:last-child { display: flex; flex-wrap: wrap; gap: 8px; }
 
+@media (min-width: 981px) {
+  .case-list-section > *,
+  .case-detail-section > * {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
 @media (max-width: 980px) {
   .case-hero,
   .admin-workspace,
