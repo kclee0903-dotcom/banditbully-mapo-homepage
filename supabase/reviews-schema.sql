@@ -1,5 +1,7 @@
 -- Bandibuli customer reviews: table, RLS policies, and Storage policies.
 -- Run this SQL in the Supabase SQL editor after creating a project.
+-- Supabase hosted REST/Storage APIs provide browser CORS responses automatically.
+-- CORS headers only need separate handling when an Edge Function is added.
 
 create extension if not exists pgcrypto;
 
@@ -63,6 +65,7 @@ for each row execute function public.set_reviews_updated_at();
 
 alter table public.reviews enable row level security;
 
+grant usage on schema public to anon, authenticated;
 revoke all on public.reviews from anon, authenticated;
 grant select, insert on public.reviews to anon, authenticated;
 grant update, delete on public.reviews to authenticated;

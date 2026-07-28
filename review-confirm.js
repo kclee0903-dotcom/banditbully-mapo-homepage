@@ -17,13 +17,9 @@ const renderConfirmStars = (rating = 5) => {
 };
 
 const createConfirmClient = (token) => {
-  const config = window.BANDIBULI_SUPABASE || {};
-  if (!window.supabase || !config.url || !config.anonKey || config.url.includes('YOUR_PROJECT_REF')) {
-    throw new Error('Supabase 설정이 필요합니다.');
-  }
-  return window.supabase.createClient(config.url, config.anonKey, {
-    global: { headers: { 'x-confirm-token': token } }
-  });
+  const { createClient } = window.BANDIBULI_SUPABASE_HELPERS || {};
+  if (!createClient) throw new Error('Supabase 연결 모듈을 불러오지 못했습니다.');
+  return createClient({ headers: { 'x-confirm-token': token } });
 };
 
 const invalidMarkup = '<h2>확인할 수 없는 후기입니다.</h2><p>확인 토큰이 없거나 일치하지 않습니다.</p><a class="button button--primary" href="index.html">홈페이지로 이동하기</a>';
@@ -70,7 +66,11 @@ const initConfirm = async () => {
     });
   } catch (error) {
     console.error(error);
-    root.innerHTML = invalidMarkup;
+    const { createStageError } = window.BANDIBULI_SUPABASE_HELPERS || {};
+    const message = createStageError
+      ? createStageError('접수 내용 조회', error).message
+      : '접수 내용을 불러오지 못했습니다.';
+    root.innerHTML = `<h2>후기 접수 내용을 불러오지 못했습니다.</h2><p>${escapeConfirmHtml(message)}</p><p>이미 저장을 완료했다면 다시 제출하지 말고 관리자에게 문의해주세요.</p><a class="button button--primary" href="index.html">홈페이지로 이동하기</a>`;
   }
 };
 

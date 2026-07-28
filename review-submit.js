@@ -8,13 +8,12 @@ const REVIEW_ALLOWED_TYPES = new Map([
 const REVIEW_COOLDOWN_KEY = 'bandibuliReviewLastSubmittedAt';
 
 const getReviewConfig = () => window.BANDIBULI_SUPABASE || {};
+const getReviewHelpers = () => window.BANDIBULI_SUPABASE_HELPERS || {};
 
-const getClient = () => {
-  const config = getReviewConfig();
-  if (!window.supabase || !config.url || !config.anonKey || config.url.includes('YOUR_PROJECT_REF')) {
-    throw new Error('Supabase URL과 anon key를 supabase-config.js에 설정해주세요.');
-  }
-  return window.supabase.createClient(config.url, config.anonKey);
+const getClient = (options = {}) => {
+  const { createClient } = getReviewHelpers();
+  if (!createClient) throw new Error('Supabase 연결 모듈을 불러오지 못했습니다. 새로고침해주세요.');
+  return createClient(options);
 };
 
 const createConfirmToken = () => {
@@ -58,18 +57,70 @@ const setError = (message) => {
   if (errorNode) errorNode.textContent = message;
 };
 
+const setProgress = (message = '') => {
+  const progressNode = document.querySelector('[data-review-submit-progress]');
+  if (progressNode) {
+    progressNode.textContent = message;
+    progressNode.hidden = !message;
+  }
+};
+
+const asStageError = (stage, error) => {
+  const { createStageError } = getReviewHelpers();
+  return createStageError ? createStageError(stage, error) : error;
+};
+
+const verifySupabaseConnection = async (client) => {
+  try {
+    const { error } = await client.from('reviews').select('id').limit(1);
+    if (error) throw error;
+  } catch (error) {
+    throw asStageError('Supabase 연결 확인', error);
+  }
+};
+
 const uploadReviewImage = async (client, file, token) => {
   if (!file) return '';
   const bucket = getReviewConfig().reviewImageBucket || 'review-images';
   const path = createSafeImagePath(file, token);
-  const { error } = await client.storage.from(bucket).upload(path, file, {
-    cacheControl: '31536000',
-    contentType: file.type,
-    upsert: false
-  });
-  if (error) throw error;
-  const { data } = client.storage.from(bucket).getPublicUrl(path);
-  return data.publicUrl;
+  try {
+    const { error } = await client.storage.from(bucket).upload(path, file, {
+      cacheControl: '31536000',
+      contentType: file.type,
+      upsert: false
+    });
+    if (error) throw error;
+    const { data } = client.storage.from(bucket).getPublicUrl(path);
+    if (!data?.publicUrl) throw new Error('업로드 이미지의 공개 주소를 만들지 못했습니다.');
+    return data.publicUrl;
+  } catch (error) {
+    throw asStageError('이미지 업로드', error);
+  }
+};
+
+const saveReview = async (client, payload) => {
+  try {
+    const { error } = await client.from('reviews').insert(payload);
+    if (error) throw error;
+  } catch (error) {
+    throw asStageError('후기 저장', error);
+  }
+};
+
+const verifySavedReview = async (reviewId, token) => {
+  try {
+    const confirmClient = getClient({ headers: { 'x-confirm-token': token } });
+    const { data, error } = await confirmClient
+      .from('reviews')
+      .select('id,status')
+      .eq('id', reviewId)
+      .eq('confirm_token', token)
+      .single();
+    if (error) throw error;
+    if (!data || data.status !== 'pending') throw new Error('저장된 후기 상태를 확인하지 못했습니다.');
+  } catch (error) {
+    throw asStageError('등록 확인', error);
+  }
 };
 
 const validateForm = (form, file) => {
@@ -117,6 +168,7 @@ const initSubmit = () => {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     setError('');
+    setProgress('');
     const [file] = form.elements.review_image.files || [];
     const validationError = validateForm(form, file);
     if (validationError) {
@@ -128,9 +180,13 @@ const initSubmit = () => {
     submitButton.textContent = '접수 중...';
     try {
       const client = getClient();
+      setProgress(file ? '1/4 Supabase 연결을 확인하고 있습니다.' : '1/3 Supabase 연결을 확인하고 있습니다.');
+      await verifySupabaseConnection(client);
+
       const formData = new FormData(form);
       const reviewId = createReviewId();
       const token = createConfirmToken();
+      if (file) setProgress('2/4 이미지를 업로드하고 있습니다.');
       const imageUrl = await uploadReviewImage(client, file, token);
       const payload = {
         id: reviewId,
@@ -143,12 +199,27 @@ const initSubmit = () => {
         confirm_token: token,
         consent_agreed: true
       };
-      const { error } = await client.from('reviews').insert(payload);
-      if (error) throw error;
+
+      setProgress(file ? '3/4 후기 내용을 저장하고 있습니다.' : '2/3 후기 내용을 저장하고 있습니다.');
+      await saveReview(client, payload);
       localStorage.setItem(REVIEW_COOLDOWN_KEY, String(Date.now()));
+
+      setProgress(file ? '4/4 저장된 후기를 확인하고 있습니다.' : '3/3 저장된 후기를 확인하고 있습니다.');
+      try {
+        await verifySavedReview(reviewId, token);
+      } catch (verificationError) {
+        console.error(verificationError);
+        setProgress('');
+        setError(`후기 저장은 완료됐지만 접수 확인에 실패했습니다. 다시 제출하지 말고 관리자에게 문의해주세요. ${verificationError.message}`);
+        submitButton.textContent = '후기 저장 완료';
+        return;
+      }
+
+      setProgress('후기 접수가 완료되었습니다. 확인 페이지로 이동합니다.');
       window.location.href = `review-confirm.html?id=${encodeURIComponent(reviewId)}&token=${encodeURIComponent(token)}`;
     } catch (error) {
       console.error(error);
+      setProgress('');
       setError(error.message || '후기 접수 중 오류가 발생했습니다.');
       submitButton.disabled = false;
       submitButton.textContent = '후기 제출하기';

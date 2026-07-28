@@ -51,25 +51,29 @@ const renderStars = (rating = 5) => {
 };
 
 const getSupabaseClient = () => {
-  const config = window.BANDIBULI_SUPABASE;
-  if (!window.supabase || !config?.url || !config?.anonKey || config.url.includes('YOUR_PROJECT_REF')) return null;
-  return window.supabase.createClient(config.url, config.anonKey);
+  const { createClient } = window.BANDIBULI_SUPABASE_HELPERS || {};
+  return createClient ? createClient() : null;
 };
 
 const fetchApprovedReviews = async () => {
   const client = getSupabaseClient();
-  if (!client) return REVIEW_SAMPLE_DATA;
-  const { data, error } = await client
-    .from('reviews')
-    .select('id,nickname,site_type,rating,review_text,image_url,display_date,created_at,status')
-    .eq('status', 'approved')
-    .order('display_date', { ascending: false })
-    .order('created_at', { ascending: false });
-  if (error) throw error;
-  const approvedReviews = data || [];
-  const existingIds = new Set(approvedReviews.map((review) => review.id));
-  const existingReviews = REVIEW_SAMPLE_DATA.filter((review) => !existingIds.has(review.id));
-  return [...approvedReviews, ...existingReviews];
+  if (!client) throw new Error('Supabase 연결 모듈을 불러오지 못했습니다.');
+  try {
+    const { data, error } = await client
+      .from('reviews')
+      .select('id,nickname,site_type,rating,review_text,image_url,display_date,created_at,status')
+      .eq('status', 'approved')
+      .order('display_date', { ascending: false })
+      .order('created_at', { ascending: false });
+    if (error) throw error;
+    const approvedReviews = data || [];
+    const existingIds = new Set(approvedReviews.map((review) => review.id));
+    const existingReviews = REVIEW_SAMPLE_DATA.filter((review) => !existingIds.has(review.id));
+    return [...approvedReviews, ...existingReviews];
+  } catch (error) {
+    const { createStageError } = window.BANDIBULI_SUPABASE_HELPERS || {};
+    throw createStageError ? createStageError('고객후기 조회', error) : error;
+  }
 };
 
 const renderReviewCard = (review) => `
@@ -97,11 +101,16 @@ const renderReviewList = async () => {
   const listNode = document.querySelector('[data-review-list]');
   const countNode = document.querySelector('[data-review-count]');
   const emptyNode = document.querySelector('[data-review-empty]');
+  const statusNode = document.querySelector('[data-review-load-status]');
   if (!listNode) return;
   const reviews = (await fetchApprovedReviews()).filter((review) => review.status === 'approved');
   listNode.innerHTML = reviews.map(renderReviewCard).join('');
   if (countNode) countNode.textContent = `총 ${reviews.length}개의 고객 리뷰가 등록되어 있습니다.`;
   if (emptyNode) emptyNode.hidden = reviews.length > 0;
+  if (statusNode) {
+    statusNode.hidden = true;
+    statusNode.textContent = '';
+  }
 };
 
 if (document.querySelector('[data-review-list]')) {
@@ -109,8 +118,13 @@ if (document.querySelector('[data-review-list]')) {
     console.error(error);
     const countNode = document.querySelector('[data-review-count]');
     const listNode = document.querySelector('[data-review-list]');
+    const statusNode = document.querySelector('[data-review-load-status]');
     const sampleReviews = REVIEW_SAMPLE_DATA.filter((review) => review.status === 'approved');
     if (listNode) listNode.innerHTML = sampleReviews.map(renderReviewCard).join('');
     if (countNode) countNode.textContent = `총 ${sampleReviews.length}개의 고객 리뷰가 등록되어 있습니다.`;
+    if (statusNode) {
+      statusNode.hidden = false;
+      statusNode.textContent = '고객후기 서버 연결이 지연되어 기본 후기를 표시하고 있습니다. 잠시 후 다시 확인해주세요.';
+    }
   });
 }
