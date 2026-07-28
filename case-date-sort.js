@@ -5,10 +5,11 @@ if (caseGrid) {
 
   caseCards
     .map((card, index) => {
+      const featured = card.dataset.featured === 'true' ? 1 : 0;
       const dateValue = card.querySelector('time[datetime]')?.dateTime || '';
       const timestamp = dateValue ? Date.parse(`${dateValue}T00:00:00`) : Number.NEGATIVE_INFINITY;
-      return { card, index, timestamp: Number.isNaN(timestamp) ? Number.NEGATIVE_INFINITY : timestamp };
+      return { card, featured, index, timestamp: Number.isNaN(timestamp) ? Number.NEGATIVE_INFINITY : timestamp };
     })
-    .sort((a, b) => b.timestamp - a.timestamp || a.index - b.index)
+    .sort((a, b) => b.featured - a.featured || b.timestamp - a.timestamp || a.index - b.index)
     .forEach(({ card }) => caseGrid.appendChild(card));
 }
