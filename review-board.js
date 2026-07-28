@@ -50,6 +50,8 @@ const renderStars = (rating = 5) => {
   return `<span aria-label="별점 ${safeRating}점">${'★'.repeat(safeRating)}${'☆'.repeat(5 - safeRating)}</span>`;
 };
 
+const createReviewDetailUrl = (reviewId) => `review-detail.html?id=${encodeURIComponent(String(reviewId || ''))}`;
+
 const getSupabaseClient = () => {
   const { createClient } = window.BANDIBULI_SUPABASE_HELPERS || {};
   return createClient ? createClient() : null;
@@ -79,9 +81,9 @@ const fetchApprovedReviews = async () => {
 const renderReviewCard = (review) => `
   <article class="review-card">
     ${review.image_url ? `
-      <figure class="review-card__image">
+      <a class="review-card__image" href="${createReviewDetailUrl(review.id)}" aria-label="${escapeReviewHtml(`${review.nickname || '고객'} 후기 자세히 보기`)}">
         <img src="${escapeReviewHtml(review.image_url)}" alt="${escapeReviewHtml(`${review.nickname} 후기 이미지`)}" loading="lazy" />
-      </figure>
+      </a>
     ` : ''}
     <div class="review-card__body">
       <div class="review-card__head">
@@ -92,7 +94,8 @@ const renderReviewCard = (review) => `
         <div><dt>현장 유형</dt><dd>${escapeReviewHtml(review.site_type || '-')}</dd></div>
         <div><dt>작성일</dt><dd>${formatReviewDate(review.display_date || review.created_at)}</dd></div>
       </dl>
-      <p>${escapeReviewHtml(review.review_text || '')}</p>
+      <p class="review-card__excerpt">${escapeReviewHtml(review.review_text || '')}</p>
+      <a class="review-card__more" href="${createReviewDetailUrl(review.id)}" aria-label="${escapeReviewHtml(`${review.nickname || '고객'} 후기 자세히 보기`)}">자세히 보기</a>
     </div>
   </article>
 `;
