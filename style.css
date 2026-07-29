@@ -930,7 +930,7 @@ p { color: var(--body); line-height: 1.86; }
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 380px));
   gap: 22px;
   align-items: stretch;
-  justify-content: start;
+  justify-content: center;
 }
 
 .video-card {
