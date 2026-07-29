@@ -30,10 +30,10 @@ topButton?.addEventListener('click', () => {
 updateHeader();
 updateTopButton();
 
-const revealSelectors = ['.reveal', '.reveal-card', '.reveal-table', '.reveal-image'];
+const revealSelectors = ['.reveal', '.reveal-card', '.reveal-table', '.reveal-image', '.reveal-card-group > *'];
 const revealItems = new Set(document.querySelectorAll(revealSelectors.join(', ')));
 
-const rhythmGroups = document.querySelectorAll('.cards, .premium-brand__cards, .intent-grid, .timeline, .video-grid, .faq-list, .contact-card__actions, .video-cta__actions');
+const rhythmGroups = document.querySelectorAll('.cards, .premium-brand__cards, .intent-grid, .patent-grid, .product-test-grid, .recognition-grid, .timeline, .video-grid, .faq-list, .contact-card__actions, .video-cta__actions');
 
 rhythmGroups.forEach((group) => {
   Array.from(group.children).forEach((item, index) => {
@@ -65,3 +65,30 @@ if (revealItems.size) {
     revealItems.forEach((item) => item.classList.add('is-visible'));
   }
 }
+
+const imageLightbox = document.querySelector('[data-image-lightbox]');
+const imageLightboxImage = imageLightbox?.querySelector('[data-image-lightbox-image]');
+const imageLightboxCaption = imageLightbox?.querySelector('[data-image-lightbox-caption]');
+const imageLightboxClose = imageLightbox?.querySelector('[data-image-lightbox-close]');
+const imageLightboxTriggers = document.querySelectorAll('[data-lightbox-src]');
+
+const closeImageLightbox = () => {
+  if (imageLightbox?.open) imageLightbox.close();
+};
+
+imageLightboxTriggers.forEach((trigger) => {
+  trigger.addEventListener('click', () => {
+    if (!imageLightbox || !imageLightboxImage || !imageLightboxCaption) return;
+
+    imageLightboxImage.src = trigger.dataset.lightboxSrc || '';
+    imageLightboxImage.alt = trigger.dataset.lightboxAlt || '';
+    imageLightboxCaption.textContent = trigger.dataset.lightboxCaption || '';
+    imageLightbox.showModal();
+  });
+});
+
+imageLightboxClose?.addEventListener('click', closeImageLightbox);
+
+imageLightbox?.addEventListener('click', (event) => {
+  if (event.target === imageLightbox) closeImageLightbox();
+});

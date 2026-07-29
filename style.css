@@ -296,6 +296,8 @@ p { color: var(--body); line-height: 1.86; }
 .section:not(.hero) > .video-grid,
 .section:not(.hero) > .video-cta,
 .section:not(.hero) > .intent-grid,
+.section:not(.hero) > .patent-grid,
+.section:not(.hero) > .credibility-group,
 .section:not(.hero) > .faq-list,
 .section:not(.hero) > .split__content,
 .section:not(.hero) > .checklist {
@@ -548,6 +550,351 @@ p { color: var(--body); line-height: 1.86; }
 .intent-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .intent-grid article { background: linear-gradient(180deg, #f7f2e6, #f2f0ea); }
 .intent-grid p { margin-bottom: 0; }
+
+.credibility {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 92% 5%, rgba(74, 130, 85, 0.1), transparent 24%),
+    linear-gradient(180deg, #f8fbf6 0%, #fffdf8 48%, #f7f2e6 100%);
+}
+
+.credibility::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--brand-forest), #86ad4a);
+  opacity: 0.9;
+}
+
+.patent-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.patent-card {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.8fr) minmax(0, 1.2fr);
+  gap: 0;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(35, 95, 67, 0.14);
+  border-radius: 30px;
+  box-shadow: var(--shadow-soft);
+}
+
+.evidence-image-button,
+.recognition-card__image--button,
+.test-report-thumbnails button {
+  appearance: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  background: transparent;
+  border: 0;
+  cursor: zoom-in;
+}
+
+.evidence-image-button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 380px;
+  padding: 24px;
+  background: linear-gradient(145deg, #eff6ec, #f8f4e9);
+  border-right: 1px solid rgba(35, 95, 67, 0.1);
+}
+
+.evidence-image-button img {
+  display: block;
+  width: 100%;
+  max-width: 245px;
+  max-height: 330px;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 18px rgba(31, 47, 41, 0.16));
+  transition: transform 0.28s var(--ease);
+}
+
+.evidence-image-button span {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  padding: 5px 10px;
+  color: #ffffff;
+  background: rgba(23, 66, 49, 0.88);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 760;
+  line-height: 1.4;
+}
+
+.evidence-image-button:hover img,
+.evidence-image-button:focus-visible img {
+  transform: scale(1.035);
+}
+
+.patent-card__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(24px, 3vw, 36px);
+}
+
+.credibility-index {
+  align-self: flex-start;
+  margin-bottom: 14px;
+  padding: 5px 10px;
+  color: var(--brand-forest-dark);
+  background: var(--green-mist);
+  border: 1px solid rgba(35, 95, 67, 0.12);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 820;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+.patent-card h3 {
+  margin-bottom: 8px;
+  color: var(--heading);
+  font-size: clamp(1.16rem, 1.75vw, 1.42rem);
+}
+
+.patent-card p:last-child,
+.product-card p:last-child,
+.recognition-card p:last-child {
+  margin-bottom: 0;
+}
+
+.patent-number {
+  margin-bottom: 18px;
+  color: var(--brand-forest-dark);
+  font-weight: 800;
+}
+
+.credibility-group {
+  margin-top: 58px;
+}
+
+.credibility-group__heading {
+  max-width: 780px;
+  margin-bottom: 28px;
+}
+
+.credibility-group__heading h3 {
+  margin-bottom: 10px;
+  color: var(--heading);
+  font-size: clamp(1.35rem, 2.3vw, 1.9rem);
+}
+
+.credibility-group__heading p:last-child {
+  margin-bottom: 0;
+}
+
+.eyebrow--soft {
+  color: var(--brand-forest-dark);
+  background: rgba(240, 210, 138, 0.44);
+  border: 1px solid rgba(35, 95, 67, 0.1);
+}
+
+.product-test-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.product-card,
+.test-report-card,
+.recognition-card {
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(35, 95, 67, 0.13);
+  border-radius: 26px;
+  box-shadow: var(--shadow-soft);
+}
+
+.product-card {
+  padding: 24px;
+}
+
+.product-card__image {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  margin: -24px -24px 22px;
+  padding: 22px;
+  background: linear-gradient(145deg, #f7f2e6, #edf5ee);
+  border-bottom: 1px solid rgba(35, 95, 67, 0.1);
+}
+
+.product-card__image img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: 184px;
+  object-fit: contain;
+}
+
+.test-report-card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+
+.test-report-card h3 {
+  margin-bottom: 10px;
+  color: var(--heading);
+}
+
+.test-report-thumbnails {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.test-report-thumbnails button {
+  overflow: hidden;
+  background: #f7f6f0;
+  border: 1px solid rgba(35, 95, 67, 0.12);
+  border-radius: 12px;
+  transition: transform 0.24s var(--ease), border-color 0.24s var(--ease);
+}
+
+.test-report-thumbnails button:hover,
+.test-report-thumbnails button:focus-visible {
+  border-color: rgba(35, 95, 67, 0.36);
+  transform: translateY(-2px);
+}
+
+.test-report-thumbnails img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.test-report-card__note {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+.recognition-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.recognition-card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  text-align: center;
+}
+
+.recognition-card__image {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 170px;
+  margin-bottom: 18px;
+  padding: 14px;
+  background: #ffffff;
+  border: 1px solid rgba(35, 95, 67, 0.09);
+  border-radius: 18px;
+}
+
+.recognition-card__image img {
+  display: block;
+  width: 100%;
+  height: 138px;
+  object-fit: contain;
+}
+
+.recognition-card h3 {
+  min-height: 2.9em;
+  margin-bottom: 8px;
+  color: var(--heading);
+}
+
+.recognition-card p {
+  margin-top: auto;
+  font-size: 0.9rem;
+  line-height: 1.68;
+}
+
+.evidence-image-button:focus-visible,
+.recognition-card__image--button:focus-visible,
+.test-report-thumbnails button:focus-visible,
+.image-lightbox__close:focus-visible {
+  outline: 3px solid rgba(240, 210, 138, 0.9);
+  outline-offset: 3px;
+}
+
+.image-lightbox {
+  width: min(92vw, 900px);
+  max-height: 92vh;
+  padding: 0;
+  overflow: visible;
+  background: #fffdf8;
+  border: 0;
+  border-radius: 24px;
+  box-shadow: 0 34px 100px rgba(10, 28, 20, 0.38);
+}
+
+.image-lightbox::backdrop {
+  background: rgba(9, 22, 16, 0.76);
+  backdrop-filter: blur(6px);
+}
+
+.image-lightbox figure {
+  display: grid;
+  gap: 14px;
+  max-height: 88vh;
+  margin: 0;
+  padding: 26px;
+  overflow: auto;
+}
+
+.image-lightbox img {
+  display: block;
+  width: 100%;
+  max-height: 76vh;
+  object-fit: contain;
+}
+
+.image-lightbox figcaption {
+  color: var(--heading);
+  font-weight: 740;
+  text-align: center;
+}
+
+.image-lightbox__close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: #ffffff;
+  background: var(--brand-forest-dark);
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 12px 26px rgba(10, 28, 20, 0.28);
+  cursor: pointer;
+  font-size: 1.8rem;
+  line-height: 1;
+}
 
 .split {
   display: grid;
@@ -811,6 +1158,16 @@ details strong { color: var(--brand-dark); font-weight: 760; }
   .nav::-webkit-scrollbar { display: none; }
   .expert, .split, .contact { grid-template-columns: 1fr; }
   .cards--three, .timeline, .intent-grid, .premium-brand__cards, .video-grid { grid-template-columns: 1fr 1fr; }
+  .patent-grid { gap: 18px; }
+  .patent-card { grid-template-columns: 1fr; }
+  .evidence-image-button {
+    min-height: 330px;
+    border-right: 0;
+    border-bottom: 1px solid rgba(35, 95, 67, 0.1);
+  }
+  .product-test-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .test-report-card { grid-column: 1 / -1; }
+  .recognition-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .timeline h3 { min-height: auto; }
   .contact { align-items: stretch; }
 }
@@ -897,6 +1254,27 @@ details strong { color: var(--brand-dark); font-weight: 760; }
   .hero__inner,
   .hero__banner { max-width: 100%; }
   .cards--three, .timeline, .intent-grid, .premium-brand__cards, .video-grid { grid-template-columns: minmax(0, 1fr); }
+  .patent-grid,
+  .product-test-grid,
+  .recognition-grid { grid-template-columns: minmax(0, 1fr); }
+  .test-report-card { grid-column: auto; }
+  .credibility::before { width: 6px; }
+  .credibility-group { margin-top: 42px; }
+  .patent-card { border-radius: 22px; }
+  .evidence-image-button { min-height: 300px; padding: 18px; }
+  .evidence-image-button img { max-height: 265px; }
+  .patent-card__body { padding: 22px; }
+  .product-card,
+  .test-report-card,
+  .recognition-card { border-radius: 22px; }
+  .recognition-card h3 { min-height: auto; }
+  .image-lightbox {
+    width: calc(100vw - 24px);
+    max-height: 90vh;
+    border-radius: 18px;
+  }
+  .image-lightbox figure { padding: 18px; }
+  .image-lightbox__close { top: 8px; right: 8px; }
   .grid { gap: 16px; }
   .card, .checklist, .contact-card, .expert__panel, .intent-grid article { padding: 20px; border-radius: 22px; }
   .video-card__frame { min-height: 320px; }
