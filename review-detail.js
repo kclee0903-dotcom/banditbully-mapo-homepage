@@ -31,6 +31,13 @@ const REVIEW_DETAIL_SAMPLES = [
   }
 ];
 
+const getStaticReviewDetail = (id) => {
+  const backup = Array.isArray(window.BANDIBULI_REVIEW_BACKUP)
+    ? window.BANDIBULI_REVIEW_BACKUP
+    : [];
+  return backup.find((review) => review.id === id && review.status === 'approved') || null;
+};
+
 const escapeReviewDetailHtml = (value = '') => String(value)
   .replaceAll('&', '&amp;')
   .replaceAll('<', '&lt;')
@@ -71,20 +78,27 @@ const getReviewDetailClient = () => {
 };
 
 const fetchApprovedReviewDetail = async (id) => {
-  const sample = REVIEW_DETAIL_SAMPLES.find((review) => review.id === id);
-  if (sample) return sample;
+  const savedReview = getStaticReviewDetail(id)
+    || REVIEW_DETAIL_SAMPLES.find((review) => review.id === id)
+    || null;
 
-  const client = getReviewDetailClient();
-  const { data, error } = await client
-    .from('reviews')
-    .select('id,nickname,site_type,rating,review_text,image_url,display_date,created_at,status')
-    .eq('id', id)
-    .eq('status', 'approved')
-    .maybeSingle();
+  try {
+    const client = getReviewDetailClient();
+    const { data, error } = await client
+      .from('reviews')
+      .select('id,nickname,site_type,rating,review_text,image_url,display_date,created_at,status')
+      .eq('id', id)
+      .eq('status', 'approved')
+      .maybeSingle();
 
-  if (error) throw error;
-  if (!data) throw new Error('승인된 고객 후기를 찾을 수 없습니다.');
-  return data;
+    if (error) throw error;
+    if (data) return savedReview ? { ...data, ...savedReview } : data;
+    if (savedReview) return savedReview;
+    throw new Error('승인된 고객 후기를 찾을 수 없습니다.');
+  } catch (error) {
+    if (savedReview) return savedReview;
+    throw error;
+  }
 };
 
 const renderApprovedReviewDetail = (review) => {
