@@ -31,6 +31,32 @@ const REVIEW_SAMPLE_DATA = [
   }
 ];
 
+const getStaticReviewBackup = () => Array.isArray(window.BANDIBULI_REVIEW_BACKUP)
+  ? window.BANDIBULI_REVIEW_BACKUP.filter((review) => review.status === 'approved')
+  : [];
+
+const mergeReviewSources = (liveReviews = []) => {
+  const reviewsById = new Map(
+    liveReviews
+      .filter((review) => review?.id && review.status === 'approved')
+      .map((review) => [review.id, review])
+  );
+
+  getStaticReviewBackup().forEach((backupReview) => {
+    const liveReview = reviewsById.get(backupReview.id) || {};
+    reviewsById.set(backupReview.id, { ...liveReview, ...backupReview, status: 'approved' });
+  });
+
+  const publishedReviews = [...reviewsById.values()].sort((a, b) => {
+    const left = new Date(a.display_date || a.created_at || 0).getTime();
+    const right = new Date(b.display_date || b.created_at || 0).getTime();
+    return right - left;
+  });
+  const existingIds = new Set(publishedReviews.map((review) => review.id));
+  const sampleReviews = REVIEW_SAMPLE_DATA.filter((review) => !existingIds.has(review.id));
+  return [...publishedReviews, ...sampleReviews];
+};
+
 const escapeReviewHtml = (value = '') => String(value)
   .replaceAll('&', '&amp;')
   .replaceAll('<', '&lt;')
@@ -68,10 +94,7 @@ const fetchApprovedReviews = async () => {
       .order('display_date', { ascending: false })
       .order('created_at', { ascending: false });
     if (error) throw error;
-    const approvedReviews = data || [];
-    const existingIds = new Set(approvedReviews.map((review) => review.id));
-    const existingReviews = REVIEW_SAMPLE_DATA.filter((review) => !existingIds.has(review.id));
-    return [...approvedReviews, ...existingReviews];
+    return mergeReviewSources(data || []);
   } catch (error) {
     const { createStageError } = window.BANDIBULI_SUPABASE_HELPERS || {};
     throw createStageError ? createStageError('고객후기 조회', error) : error;
@@ -122,12 +145,14 @@ if (document.querySelector('[data-review-list]')) {
     const countNode = document.querySelector('[data-review-count]');
     const listNode = document.querySelector('[data-review-list]');
     const statusNode = document.querySelector('[data-review-load-status]');
-    const sampleReviews = REVIEW_SAMPLE_DATA.filter((review) => review.status === 'approved');
-    if (listNode) listNode.innerHTML = sampleReviews.map(renderReviewCard).join('');
-    if (countNode) countNode.textContent = `총 ${sampleReviews.length}개의 고객 리뷰가 등록되어 있습니다.`;
+    const savedReviews = mergeReviewSources([]).filter((review) => review.status === 'approved');
+    if (listNode) listNode.innerHTML = savedReviews.map(renderReviewCard).join('');
+    if (countNode) countNode.textContent = `총 ${savedReviews.length}개의 고객 리뷰가 등록되어 있습니다.`;
     if (statusNode) {
       statusNode.hidden = false;
-      statusNode.textContent = '고객후기 서버 연결이 지연되어 기본 후기를 표시하고 있습니다. 잠시 후 다시 확인해주세요.';
+      statusNode.textContent = getStaticReviewBackup().length
+        ? '고객후기 서버 연결이 지연되어 홈페이지에 안전하게 저장된 후기를 표시하고 있습니다.'
+        : '고객후기 서버 연결이 지연되어 기본 후기를 표시하고 있습니다. 잠시 후 다시 확인해주세요.';
     }
   });
 }
