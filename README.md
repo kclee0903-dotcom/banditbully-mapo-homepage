@@ -56,24 +56,10 @@
 - RLS가 활성화되어 있고, 공개 사용자가 `approved` 이외 리뷰 목록을 읽을 수 없는지 확인하세요.
 - 관리자 권한은 Supabase Auth 사용자 `app_metadata`로만 부여하세요.
 
-## 현재 GitHub Pages 테스트 설정
+## 현재 운영 도메인 설정
 
-- 아직 운영 도메인을 구매하지 않은 상태이므로 GitHub Pages Settings의 **Custom domain은 비워둡니다.**
-- 이 브랜치에서는 `CNAME` 파일을 제거해 GitHub Pages가 미구매 도메인으로 강제 연결되지 않게 했습니다.
-- 현재 GitHub Pages 테스트 주소는 `https://kclee0903-dotcom.github.io/banditbully-mapo-homepage/`입니다.
-- 내부 페이지 이동은 `reviews.html`, `review-submit.html`, `admin/login.html`, `admin/reviews.html`처럼 도메인 없는 상대경로를 사용합니다.
-
-## 도메인 구매 후 운영 전환 체크리스트
-
-도메인을 구매하고 공개할 때 아래 항목을 구매한 운영 도메인의 절대 URL 기준으로 다시 설정하세요.
-
-- GitHub Pages Settings > Custom domain: 구매한 운영 도메인
-- `CNAME`: 파일을 다시 만들고 내용은 구매한 운영 도메인만 입력
-- 각 공개 HTML 페이지의 `canonical`: 운영 도메인의 절대 URL로 추가
-- 각 공개 HTML 페이지의 `og:url`: 운영 도메인의 절대 URL로 추가
-- `index.html`의 구조화 데이터 `url`, `logo`, `image`, `@id`: 운영 도메인의 절대 URL로 전환
-- `sitemap.xml`: 공개 페이지 URL을 운영 도메인의 절대 URL로 채우고 검색엔진에 제출
-- `robots.txt`: 전체 차단을 해제하고 필요한 관리자 경로만 차단
-- Supabase Auth Site URL / Redirect URL allow list: 운영 도메인과 필요한 GitHub Pages 테스트 주소를 등록
-- 관리자 화면이나 공유 버튼에서 생성되는 내부 공유 링크: 운영 도메인 기준으로 동작하는지 확인
-- 네이버/구글 검색 등록 주소: 운영 도메인으로 등록
+- 운영 도메인: `https://bandibuli-saejip.com/`
+- `CNAME`과 공개 페이지의 canonical, Open Graph URL, 구조화 데이터, 사이트맵은 운영 도메인의 절대 URL을 사용합니다.
+- 내부 페이지 이동은 `reviews.html`, `review-submit.html`, `admin/login.html`, `admin/reviews.html`처럼 상대경로를 사용합니다.
+- 검색에서 제외할 중복 시공사례는 삭제하지 않고 `noindex, follow`로 유지합니다.
+- 홈페이지는 시공·지역·상담 정보를 담당하고, 네이버 블로그는 상세 현장기록과 전문 정보 콘텐츠를 담당합니다.
