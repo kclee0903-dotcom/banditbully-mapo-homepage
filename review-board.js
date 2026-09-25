@@ -1,36 +1,3 @@
-const REVIEW_SAMPLE_DATA = [
-  {
-    id: 'sample-review-new-home',
-    nickname: '입주 전 점검 고객',
-    site_type: '신축 아파트',
-    rating: 5,
-    review_text: '입주 전 새집 냄새가 생각보다 강해서 상담을 받았습니다. 어떤 공간을 먼저 봐야 하는지 차분히 설명해주셔서 일정 잡기가 편했습니다.',
-    display_date: '2026-05-29',
-    image_url: '',
-    status: 'approved'
-  },
-  {
-    id: 'sample-review-child-care',
-    nickname: '아이 방 걱정 고객',
-    site_type: '신축 아파트',
-    rating: 5,
-    review_text: '아이가 있어 입주 전에 새집증후군 관리를 꼭 하고 싶었습니다. 붙박이장과 아이 방 쪽을 꼼꼼히 봐주셔서 안심이 됐습니다.',
-    display_date: '2026-05-26',
-    image_url: '',
-    status: 'approved'
-  },
-  {
-    id: 'sample-review-renovation-smell',
-    nickname: '올수리 후 상담 고객',
-    site_type: '인테리어 후 냄새',
-    rating: 4,
-    review_text: '도배와 마루 공사 후 냄새가 오래 남아 문의했습니다. 냄새가 강한 부분과 새 가구 내부를 나눠서 설명해주신 점이 좋았습니다.',
-    display_date: '2026-05-22',
-    image_url: '',
-    status: 'approved'
-  }
-];
-
 const getStaticReviewBackup = () => Array.isArray(window.BANDIBULI_REVIEW_BACKUP)
   ? window.BANDIBULI_REVIEW_BACKUP.filter((review) => review.status === 'approved')
   : [];
@@ -52,9 +19,7 @@ const mergeReviewSources = (liveReviews = []) => {
     const right = new Date(b.display_date || b.created_at || 0).getTime();
     return right - left;
   });
-  const existingIds = new Set(publishedReviews.map((review) => review.id));
-  const sampleReviews = REVIEW_SAMPLE_DATA.filter((review) => !existingIds.has(review.id));
-  return [...publishedReviews, ...sampleReviews];
+  return publishedReviews;
 };
 
 const escapeReviewHtml = (value = '') => String(value)
@@ -123,6 +88,12 @@ const renderReviewCard = (review) => `
   </article>
 `;
 
+const renderHomeApprovedReviews = () => {
+  const listNode = document.querySelector('[data-home-review-list]');
+  if (!listNode) return;
+  listNode.innerHTML = mergeReviewSources([]).slice(0, 3).map(renderReviewCard).join('');
+};
+
 const renderReviewList = async () => {
   const listNode = document.querySelector('[data-review-list]');
   const countNode = document.querySelector('[data-review-count]');
@@ -138,6 +109,8 @@ const renderReviewList = async () => {
     statusNode.textContent = '';
   }
 };
+
+renderHomeApprovedReviews();
 
 if (document.querySelector('[data-review-list]')) {
   renderReviewList().catch((error) => {
