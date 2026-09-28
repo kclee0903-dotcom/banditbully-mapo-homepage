@@ -82,6 +82,8 @@ const fetchApprovedReviewDetail = async (id) => {
     || REVIEW_DETAIL_SAMPLES.find((review) => review.id === id)
     || null;
 
+  if (savedReview) return savedReview;
+
   try {
     const client = getReviewDetailClient();
     const { data, error } = await client
@@ -92,11 +94,9 @@ const fetchApprovedReviewDetail = async (id) => {
       .maybeSingle();
 
     if (error) throw error;
-    if (data) return savedReview ? { ...data, ...savedReview } : data;
-    if (savedReview) return savedReview;
+    if (data) return data;
     throw new Error('승인된 고객 후기를 찾을 수 없습니다.');
   } catch (error) {
-    if (savedReview) return savedReview;
     throw error;
   }
 };
