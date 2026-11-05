@@ -151,7 +151,7 @@ const renderDetail = (cases) => {
           <div class="case-consult-box">
             <strong>우리 집도 상담이 필요하다면</strong>
             <a class="button button--secondary" href="tel:01099213632">전화 상담</a>
-            <a class="button button--primary" href="https://open.kakao.com/o/scaooume" target="_blank" rel="noopener noreferrer">카카오 상담</a>
+            <a class="button button--primary" href="https://open.kakao.com/o/snNbMANh" target="_blank" rel="noopener noreferrer">카카오 상담</a>
             <a class="button button--ghost" href="https://talk.naver.com/" target="_blank" rel="noopener noreferrer">네이버 톡톡 상담</a>
             <a class="button button--secondary" href="cases.html">목록으로 돌아가기</a>
           </div>
